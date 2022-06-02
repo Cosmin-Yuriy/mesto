@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
-   padding-top: 45px; 
+  padding-top: 45px;
   width: 100%;
   box-sizing: border-box;
   /* background-color: rgb(120, 120, 120); */
@@ -15,18 +15,4 @@
 
 .blank__tr-table:last-child {
   border-bottom-width: 1px;
-}
-
-/* 768 */
-@media screen and (max-width: 1023px) {
-  .header {
-    /* padding: 28px 24px 0 24px; */
-}
-}
-
-/* => 320 */
-@media screen and (max-width: 767px) {
-  .header {
-    /* padding: 16px 16px 0 16px; */
-  }
 }
