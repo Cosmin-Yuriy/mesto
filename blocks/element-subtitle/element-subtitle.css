@@ -1,0 +1,11 @@
+.element-subtitle {
+  display: flex;
+  background-color: white;
+  height: 79px;
+  margin-top: -5px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 0 21px 0 21px;
+  align-items: center;
+  justify-content: space-between;
+}

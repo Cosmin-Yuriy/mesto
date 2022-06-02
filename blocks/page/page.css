@@ -1,0 +1,39 @@
+.page {
+  /* background-color: #2a2c2f; */
+  display: grid;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  grid-template-areas:
+  "header header"
+  "content content"
+  "footer footer";
+  margin: auto;
+  max-width: 880px;
+  padding-left: max(19px, min(200px, calc(100vw * 0.17)));
+  padding-right: max(19px, min(200px, calc(100vw * 0.17)));
+  font-family: "Inter", Arial, sans-serif;
+  /* Сглаживаем шрифты под Хромовые браузеры */
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  /* Оптимизация шрифтов для разных разрешений */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  /* закончили гладить ) */
+  font-size: 1em;
+  color: white;
+}
+
+@media screen  and (max-width: 320px) {
+  .page {
+    padding-left: 19px;
+    padding-right: 19px;
+}
+}

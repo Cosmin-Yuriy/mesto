@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css" />
+  <title></title>
+</head>
+
+<body class="body">
+  <div class="page">
+
+    <header class="header">
+      <img class="header__logo" src="./images/Vector.svg" alt="Логотип с изображение и надписью 'Mesto'">
+    </header>
+    <main class="content">
+
+      <section class="profile">
+        <img src="./images/image.jpg" alt="" class="avatar">
+        <div class="profile-info">
+          <h1 class="title">Жак-Ив Кусто</h1>
+          <a class="button-edit">
+            <img src="./images/pencil.svg" alt="Знак карандаш" class="button-edit__pencil">
+          </a>
+          <p class="subtitle">Исследователь океана</p>
+        </div>
+        <div class="add-button">
+          <img src="./images/plus.svg" alt="Знак плюс" class="add-button__plus">
+        </div>
+      </section>
+
+      <section class="elements">
+
+        <div class="element">
+          <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Церковь в горах" class="element__img">
+          <div class="element-subtitle">
+            <p class="element-subtitle__text">Карачаевск</p>
+            <img src="./images/like.svg" alt="Сердечко" class="element-subtitle__like">
+          </div>
+        </div>
+
+        <div class="element">
+          <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Гора в далеке на закате" class="element__img">
+          <div class="element-subtitle">
+            <p class="element-subtitle__text">Гора Эльбрус</p>
+            <img src="./images/like.svg" alt="Сердечко" class="element-subtitle__like">
+          </div>
+        </div>
+
+        <div class="element">
+          <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Высокая гора между холмов" class="element__img">
+          <div class="element-subtitle">
+            <p class="element-subtitle__text">Домбай</p>
+            <img src="./images/like.svg" alt="Сердечко" class="element-subtitle__like">
+          </div>
+        </div>
+
+        <div class="element">
+          <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Гора в далеке на закате" class="element__img">
+          <div class="element-subtitle">
+            <p class="element-subtitle__text">Гора Эльбрус</p>
+            <img src="./images/like.svg" alt="Сердечко" class="element-subtitle__like">
+          </div>
+        </div>
+
+        <div class="element">
+          <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Высокая гора между холмов" class="element__img">
+          <div class="element-subtitle">
+            <p class="element-subtitle__text">Домбай</p>
+            <img src="./images/like.svg" alt="Сердечко" class="element-subtitle__like">
+          </div>
+        </div>
+
+        <div class="element">
+          <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Церковь в горах" class="element__img">
+          <div class="element-subtitle">
+            <p class="element-subtitle__text">Карачаевск</p>
+            <img src="./images/like.svg" alt="Сердечко" class="element-subtitle__like">
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+    <footer class="footer">
+      <p class="footer__subtitle">
+        &copy; 2020 Mesto Russia
+      </p>
+    </footer>
+
+  </div>
+  <div id="popup" class="popup">
+    <div class="popup__body">
+      <div class="popup__content">
+        <a href="#" class="popup__close">
+          <img src="./images/close-icon.svg" alt="" class="popup__close-icon">
+        </a>
+        <form action="#" class="popup__container">
+          <div class="popup__title">Редактировать профиль</div>
+          <input name="Name" class="popup__text" value="Жак-Ив Кусто" type=text></input>
+          <input name="Subtitle" class="popup__text" value="Исследователь океана" type=text></input>
+          <button class="popup__submit-button">
+            <div class="popup__submit-text">Сохранить</div>
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="./scripts/index.js"></script>
+</body>
+
+</html>
