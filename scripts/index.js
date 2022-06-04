@@ -14,10 +14,14 @@ buttonEdit.addEventListener('click', function(){
   editSubTitle.value = SubTitle.textContent;
 })
 
-// Закрываем наш попап крестиком без сохранения (удаляем класс c flex)
-popupCloseButton.addEventListener('click', function(){
+// Создаем функцию, удалять класс c flex
+function closePopup(){
   popup.classList.remove("popup_opened");
-})
+}
+
+//Закрываем наш попап крестиком без сохранения с помощью функции
+popupCloseButton.addEventListener('click', closePopup);
+
 
 //Здесь при нажатие кнопки сохранить мышкой и enter закроем и сохраним
 popupForm.addEventListener('submit', function(event){
@@ -25,5 +29,5 @@ popupForm.addEventListener('submit', function(event){
   event.preventDefault();
   Title.textContent = editTitle.value;
   SubTitle.textContent = editSubTitle.value;
-  popup.classList.remove("popup_opened");
+  closePopup();
 })
