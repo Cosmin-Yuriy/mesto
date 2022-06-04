@@ -1,12 +1,11 @@
 .header {
-  grid-area: header;
+  /* grid-area: header; */
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
   padding-top: 45px;
   width: 100%;
   box-sizing: border-box;
-  /* background-color: rgb(120, 120, 120); */
   border: 0;
   border-style: solid;
   border-color: rgba(84, 84, 84, 0.7);
@@ -15,7 +14,7 @@
 
 @media screen and (max-width: 600px) {
   .header {
-   padding-top:28px ;
-   width: 100vw;
+    padding-top: 28px;
+    width: 100vw;
   }
 }
