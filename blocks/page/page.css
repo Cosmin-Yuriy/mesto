@@ -1,6 +1,6 @@
 .page {
   /* background-color: #2a2c2f; */
-  display: grid;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-items: center;
@@ -31,7 +31,7 @@
   color: white;
 }
 
-@media screen  and (max-width: 320px) {
+@media screen  and (max-width: 600px) {
   .page {
     padding-left: 19px;
     padding-right: 19px;

@@ -1,15 +1,17 @@
 const popupCloseButton = document.querySelector('.popup__close')
-const Title = document.querySelector('.title')
-const SubTitle = document.querySelector('.subtitle')
+const Title = document.querySelector('.profile__title')
+const SubTitle = document.querySelector('.profile__subtitle')
 const popup = document.querySelector('.popup')
-const buttonEdit = document.querySelector('.button-edit')
+const buttonEdit = document.querySelector('.profile__button-edit')
 const editTitle = document.querySelector('.popup__text')
 const editSubTitle = document.querySelector('.popup__text:last-of-type')
-const popupForm = document.querySelector('.popup__container')
+const popupForm = document.querySelector('.popup__form')
 
 //Включаем кнопку, дословно добавляем к классу popup + класс popup-Open
 buttonEdit.addEventListener('click', function(){
   popup.classList.add("popup_opened"); 
+  editTitle.value = Title.textContent;
+  editSubTitle.value = SubTitle.textContent;
 })
 
 // Закрываем наш попап крестиком без сохранения (удаляем класс c flex)

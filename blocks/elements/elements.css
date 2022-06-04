@@ -1,5 +1,6 @@
 .elements {
-  padding-top: 51px;
+  padding: 51px 0 0 0;
+  margin: 0;
   display: grid;
   justify-items: center;
   justify-content: center;
@@ -7,4 +8,7 @@
   box-sizing: border-box;
   grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
   gap: 17px;
+  /* убираем лишнее у ul */
+  list-style-type: none;
+  margin: 0;
 }

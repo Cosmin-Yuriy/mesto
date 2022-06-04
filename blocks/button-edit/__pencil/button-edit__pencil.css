@@ -1,9 +1,0 @@
-.button-edit__pencil {
-  width: 10px;
-}
-
-@media screen and (max-width: 967px) {
-  .button-edit__pencil {
-    width: 7.5px;
-  }
-}

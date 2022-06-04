@@ -1,0 +1,19 @@
+.profile__info {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  /* grid-template-rows: repeat(2, 1fr); */
+  padding-left: 30px;
+}
+
+@media screen and (max-width: 967px) {
+  .profile__info {
+    padding-top: 22.25px;
+    justify-self: center;
+    padding-left: 19px;
+}
+}
+/* @media screen and (max-width: 420px) {
+.profile-info {
+  grid-template-columns: 320px;
+}
+} */

@@ -18,70 +18,70 @@
     <main class="content">
 
       <section class="profile">
-        <img src="./images/image.jpg" alt="" class="avatar">
-        <div class="profile-info">
-          <h1 class="title">Жак-Ив Кусто</h1>
-          <a class="button-edit">
+        <img src="./images/image.jpg" alt="" class="profile__avatar">
+        <div class="profile__info">
+          <h1 class="profile__title">Жак-Ив Кусто</h1>
+          <button class="profile__button-edit">
             <img src="./images/pencil.svg" alt="Знак карандаш" class="button-edit__pencil">
-          </a>
-          <p class="subtitle">Исследователь океана</p>
+          </button>
+          <p class="profile__subtitle">Исследователь океана</p>
         </div>
-        <div class="add-button">
-          <img src="./images/plus.svg" alt="Знак плюс" class="add-button__plus">
+        <div class="profile__add-button">
+          <img src="./images/plus.svg" alt="Знак плюс" class="profile__plus">
         </div>
       </section>
 
-      <section class="elements">
+      <ul class="elements">
 
-        <div class="element">
-          <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Церковь в горах" class="element__img">
-          <div class="element-subtitle">
-            <p class="element-subtitle__text">Карачаевск</p>
-            <img src="./images/like.svg" alt="Сердечко" class="element-subtitle__like">
+        <li class="element">
+          <img src="./images/putin.png" alt="Президент В.В. Путин" class="element__img">
+          <div class="element__subtitle">
+            <p class="element__text">В.В. Путин</p>
+            <button class="element__like"></button>
           </div>
-        </div>
+        </li>
 
-        <div class="element">
+        <li class="element">
           <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Гора в далеке на закате" class="element__img">
-          <div class="element-subtitle">
-            <p class="element-subtitle__text">Гора Эльбрус</p>
-            <img src="./images/like.svg" alt="Сердечко" class="element-subtitle__like">
+          <div class="element__subtitle">
+            <p class="element__text">Гора Эльбрус</p>
+            <button class="element__like"></button>
           </div>
-        </div>
+        </li>
 
-        <div class="element">
+        <li class="element">
           <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Высокая гора между холмов" class="element__img">
-          <div class="element-subtitle">
-            <p class="element-subtitle__text">Домбай</p>
-            <img src="./images/like.svg" alt="Сердечко" class="element-subtitle__like">
+          <div class="element__subtitle">
+            <p class="element__text">Домбай</p>
+            <button class="element__like"></button>
           </div>
-        </div>
+        </li>
 
-        <div class="element">
+        <li class="element">
           <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Гора в далеке на закате" class="element__img">
-          <div class="element-subtitle">
-            <p class="element-subtitle__text">Гора Эльбрус</p>
-            <img src="./images/like.svg" alt="Сердечко" class="element-subtitle__like">
+          <div class="element__subtitle">
+            <p class="element__text">Гора Эльбрус</p>
+            <button class="element__like"></button>
           </div>
-        </div>
+        </li>
 
-        <div class="element">
+        <li class="element">
           <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Высокая гора между холмов" class="element__img">
-          <div class="element-subtitle">
-            <p class="element-subtitle__text">Домбай</p>
-            <img src="./images/like.svg" alt="Сердечко" class="element-subtitle__like">
+          <div class="element__subtitle">
+            <p class="element__text">Домбай</p>
+            <button class="element__like"></button>
           </div>
-        </div>
+        </li>
 
-        <div class="element">
+        <li class="element">
           <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Церковь в горах" class="element__img">
-          <div class="element-subtitle">
-            <p class="element-subtitle__text">Карачаевск</p>
-            <img src="./images/like.svg" alt="Сердечко" class="element-subtitle__like">
+          <div class="element__subtitle">
+            <p class="element__text">Карачаевск</p>
+            <button class="element__like"></button>
           </div>
-        </div>
+        </li>
 
-      </section>
+      </ul>
 
     </main>
     <footer class="footer">
@@ -90,26 +90,24 @@
       </p>
     </footer>
 
-  </div>
-  <div id="popup" class="popup">
-    <div class="popup__body">
+    <div id="popup" class="popup">
       <div class="popup__content">
-        <a href="#" class="popup__close">
+        <button href="#" class="popup__close">
           <img src="./images/close-icon.svg" alt="" class="popup__close-icon">
-        </a>
-        <form action="#" class="popup__container">
-          <div class="popup__title">Редактировать профиль</div>
-          <input name="Name" class="popup__text" value="Жак-Ив Кусто" type=text>
-          <input name="Subtitle" class="popup__text" value="Исследователь океана" type=text>
+        </button>
+        <form action="#" class="popup__form">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <input name="Name" class="popup__text" value="" type=text>
+          <input name="Subtitle" class="popup__text" value="" type=text>
           <button class="popup__submit-button">
-            <span class="popup__submit-text">Сохранить</span>
+            Сохранить
           </button>
         </form>
-
       </div>
-    </div>
-  </div>
 
+    </div>
+
+  </div>
   <script src="./scripts/index.js"></script>
 </body>
 

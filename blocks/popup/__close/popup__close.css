@@ -2,6 +2,9 @@
   position: absolute;
   right: -35px;
   top: -35px;
+  /* Делаем кнопку прозрачной */
+  background-color: rgba(0,0,0,0);
+  border: none;
 }
 
 .popup__close:hover {

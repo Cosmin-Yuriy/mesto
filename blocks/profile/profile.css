@@ -1,8 +1,6 @@
 .profile {
   display: grid;
   align-items: center;
-  /* grid-template-columns: max-content max-content 1fr; */
-  /* grid-template-columns: 120px 1fr minmax(min-content, max-content); */
   grid-template-columns: 120px repeat(auto-fit, minmax(225px, 1fr));
 }
 
