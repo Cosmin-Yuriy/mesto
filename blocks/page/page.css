@@ -2,17 +2,7 @@
   /* background-color: #2a2c2f; */
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-items: center;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: center;
-  grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: repeat(1, 1fr);
-  /* grid-template-areas:
-  "header header"
-  "content content"
-  "footer footer"; */
+  /* ЗАБЫЛ УБРАТЬ ЛИШНЕЕ :) */
   margin: auto;
   max-width: 880px;
   padding-left: max(19px, min(200px, calc(100vw * 0.17)));

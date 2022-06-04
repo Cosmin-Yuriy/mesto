@@ -6,9 +6,14 @@
   padding-top: 45px;
   width: 100%;
   box-sizing: border-box;
-  border: 0;
+  /* НЕ СОВСЕМ ПОНЯЛ, зачем его убирать, если убрать будет виден Border */
+  /* border: 0; */
   border-style: solid;
-  border-color: rgba(84, 84, 84, 0.7);
+  /* Тогда ДРУГОЙ ВАРИАНТ делаем невидемым остальной border */
+  border-color: rgba(84, 84, 84, 0.0);
+  /* у нижнего меняем цвет */
+  border-bottom-color: rgba(84, 84, 84, 0.7);
+  /* здесь я задаю нижнему бордеру ширину */
   border-bottom-width: 1px;
 }
 
