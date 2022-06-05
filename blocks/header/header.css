@@ -1,8 +1,8 @@
 .header {
   /* grid-area: header; */
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+  display: flex;
+  /* grid-template-columns: 1fr;
+  grid-template-rows: 1fr; */
   padding-top: 45px;
   width: 100%;
   box-sizing: border-box;
@@ -21,5 +21,6 @@
   .header {
     padding-top: 28px;
     width: 100vw;
+    margin-left: -19px;
   }
 }
