@@ -8,4 +8,7 @@
   padding: 0 21px 0 21px;
   align-items: center;
   justify-content: space-between;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }

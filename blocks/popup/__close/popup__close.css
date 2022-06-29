@@ -1,10 +1,15 @@
 .popup__close {
   position: absolute;
-  right: -35px;
-  top: -35px;
+  margin-left: 100%;
+  margin-top: -36px;
+  /* right: -35px;
+  top: -35px; */
+  /* right: 39%;
+  top: 38%; */
   /* Делаем кнопку прозрачной */
   background-color: rgba(0,0,0,0);
   border: none;
+  z-index: 3;
 }
 
 .popup__close:hover {
@@ -13,8 +18,9 @@
 
 @media screen and (max-width: 600px) {
 .popup__close {
-  position: absolute;
-  right: 0;
-  top: -35px;
+  /* position: absolute; */
+  /* right: 0;
+  top: -35px; */
+  margin-left: 92%;
 }
 }
