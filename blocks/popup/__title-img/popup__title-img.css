@@ -1,0 +1,12 @@
+.popup__title-img {
+  /* position: absolute; */
+  margin: 0;
+  padding: 10px 0 0 0;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  /* Делаем кнопку прозрачной */
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  z-index: 3;
+}

@@ -228,9 +228,12 @@ elementsCardsAll.addEventListener("click", function (evt) {
     //Закрываем наш попап крестиком с помощью функции (если событие произошло нажали на крестик
     // buttonPopupBigImgClose в нем класс popup__close)
     buttonPopupBigImgClose.addEventListener("click", closePopupEdit);
-    //закидываем ссылку фото Элемента на которую нажали
+    //закидываем ссылку фото Элемента на которую нажали и название картинки
     const link = clickImg.src;
+    const elementImgBig = clickImg.closest(".element");
+    const titleImg = elementImgBig.querySelector(".element__text").textContent;
     //Теперь эту сслыку забрасываем в наш попап в src
     popupImg.querySelector(".popup__photo").src = link;
+    popupImg.querySelector(".popup__title-img").textContent = titleImg;
   }
 });
