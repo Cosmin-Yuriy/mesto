@@ -77,6 +77,8 @@ initialCards.forEach(function (item) {
   //колдавать с ссылкой "src" - туда забрасываем из массива, что указываем "item"
   //и объект "link"
   newElementAdd.querySelector(".element__img").src = item.link;
+  //Добавляем alt картинки из массива
+  newElementAdd.querySelector(".element__img").alt = item.alt;
   //Затем перед карточками "elementsCardsAll" в начале выбрасываем это все c помощью prepend
   elementsCardsAll.prepend(newElementAdd);
 });
