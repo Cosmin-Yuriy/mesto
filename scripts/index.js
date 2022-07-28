@@ -38,10 +38,10 @@ const buttonPopupBigImageClose = document.querySelector(
 
 const popupPhoto = document.querySelector("#popup-photo");
 const newElement = document.querySelector("#newElement");
+
 //создаем константу, из списка карточек Ul - li
 
 //ФУНКЦИИ
-
 
 //Функция добавление новых картинок |27/07/2022|
 function cardCreate(NewCard, title, link, alt) {
@@ -53,7 +53,7 @@ function cardCreate(NewCard, title, link, alt) {
   NewCard.querySelector(".element__img").alt = alt;
 }
 
-function cardRender (elementCardPage, elementAdd) {
+function cardRender(elementCardPage, elementAdd) {
   elementCardPage.prepend(elementAdd);
 }
 // Здесь мы перебираем массив методом forEach - аргументом выступает функция (item туда
@@ -62,11 +62,11 @@ function cardRender (elementCardPage, elementAdd) {
 initialCards.forEach(function (item) {
   // обязательно вставлять cloneNode в цикл, иначе не будет заново клонироваться объект/элемент
   const newElementAdd = newElement.content.cloneNode(true);
-//Функция добавление карточки
+  //Функция добавление карточки
   cardCreate(newElementAdd, item.name, item.link, item.alt);
-//
-cardRender(elementsCard, newElementAdd);
-// elementsCard.prepend(newElementAdd);
+  //
+  cardRender(elementsCard, newElementAdd);
+  // elementsCard.prepend(newElementAdd);
 });
 
 //Функция изменения текста title в форме
@@ -97,7 +97,12 @@ function popupClose(modalWindow) {
   console.log("Работает клоз");
 }
 
-
+// Функция для создании большой картинки
+function newCardBig(element, title, link, alt) {
+  element.querySelector(".popup__title-img").textContent = title;
+  element.querySelector(".popup__photo").src = link;
+  element.querySelector(".popup__photo").alt = alt;
+}
 
 //ОБРАБОТЧИКИ
 
@@ -200,25 +205,25 @@ elementsCard.addEventListener("click", function (evt) {
   //инициировано событие. Например, если событие произошло на поле
   // ввода, мы получим ссылку на этот DOM элемент.) именно этот
   // класс - кидаем его в константу
+
   const clickImg = evt.target;
+  //закидываем ссылку фото Элемента на которую нажали и название картинки
+  const linkClickImg = clickImg.src;
+  const altClickImg = clickImg.alt;
+  const elementImgBig = clickImg.closest(".element");
+  const titleClickImg =
+    elementImgBig.querySelector(".element__text").textContent;
+
   //Если мы кликнули на картинку, а в ней, кликнутой есть стиль element__img,
   // то сделаем следующее:
   if (clickImg.classList.contains("element__img")) {
     //Убираем наш  dispalay none c добавлением класса popup_opened в наш попап
     popupOpen(popupBigOpenImage);
-
     //Закрываем наш попап крестиком с помощью функции (если событие произошло нажали на крестик
     buttonPopupBigImageClose.addEventListener("click", function () {
       popupClose(popupBigOpenImage);
     });
-    //закидываем ссылку фото Элемента на которую нажали и название картинки
-    const link = clickImg.src;
-    const alt = clickImg.alt;
-    const elementImgBig = clickImg.closest(".element");
-    const titleImg = elementImgBig.querySelector(".element__text").textContent;
-    //Теперь эту сслыку забрасываем в наш попап в src
-    popupBigOpenImage.querySelector(".popup__photo").src = link;
-    popupBigOpenImage.querySelector(".popup__title-img").textContent = titleImg;
-    popupBigOpenImage.querySelector(".popup__photo").alt = alt;
+    //Функция добавление данных в большое изображение
+    newCardBig(popupBigOpenImage, titleClickImg, linkClickImg, altClickImg);
   }
 });
