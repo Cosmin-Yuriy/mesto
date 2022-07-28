@@ -1,9 +1,10 @@
 //ПЕРЕМЕННЫЕ
 
-const popupCloseButton = document.querySelector(".popup__close");
 const title = document.querySelector(".profile__title");
 const subTitle = document.querySelector(".profile__subtitle");
 const popupEditProfile = document.querySelector("#popup_edit_profile");
+const popupButtonCloseEditProfile =
+  popupEditProfile.querySelector(".popup__close");
 const buttonEdit = document.querySelector(".profile__button-edit");
 const titleEdit = document.querySelector('.popup__text[name="name"]');
 const subTitleEdit = document.querySelector('.popup__text[name="subtitle"]');
@@ -18,21 +19,20 @@ const popupAdd = document.querySelector("#popup_add");
 //Сделали переменную с помощью id
 //теперь делаем постоянную ищем нужный класс который находится там
 const popupEditCloseButton = popupAdd.querySelector(".popup__close");
-//console.log(popupEditCloseButton);
 //Сделали переменную с помощью id для текста title и subtitle ДЛЯ ПЛОХОГО МЕТОДА
 const textValuePopupTitle = document.querySelector("#text-input-title");
 const textValuePopupSubtitle = document.querySelector("#text-input-subtitle");
 //Кнопка like берем полность блок Elements
-const elementsCardsAll = document.querySelector(".elements");
+const elementsCard = document.querySelector(".elements");
 
 //Сделали переменную с помощью id для текста title и subtitle
 const templatePopform = document.querySelector(".template-todo");
 //ДЛЯ POPUP c КАРТИНКОЙ
 //Найдем наш попап с картинкой и закинем его в константу PopupImg
-const popupImg = document.querySelector("#popup-photo");
+const popupBigOpenImage = document.querySelector("#popup-photo");
 //Найдем в этом попапе нашу кнопку "закрытие" с классом  popup__close
 //и закинем это все в  popupClose
-const buttonPopupBigImgClose = document.querySelector(
+const buttonPopupBigImageClose = document.querySelector(
   ".popup__close[name='buttonPopupBigImgClose']"
 );
 
@@ -41,27 +41,6 @@ const newElement = document.querySelector("#newElement");
 //создаем константу, из списка карточек Ul - li
 
 //ФУНКЦИИ
-
-// Создаем функцию, удалять класс c flex
-function closePopupEdit() {
-  popupAdd.classList.remove("popup_opened");
-  //Корректируем текст
-  // CorrectTextForm();
-}
-
-//ФУНКЦИЯ - Корректировка текста
-const CorrectTextForm = (text) => {
-  //Удаляем текст Value
-  const RemoveTitle = document.getElementById("text-input-title");
-  //Делаем там пустую строку
-  RemoveTitle.value = "";
-  // меняем цвет title
-  textValuePopupTitle.classList.add("popup__text_color-font_grey");
-  // при нажатии на value меняется цвет обратно серый subTitle
-  textValuePopupSubtitle.classList.add("popup__text_color-font_grey");
-  const RemoveSubitle = document.getElementById("text-input-subtitle");
-  RemoveSubitle.value = "";
-};
 
 // Здесь мы перебираем массив методом forEach - аргументом выступает функция (item туда
 // направляется каждый элемент массива, соответсвенно каждая итерации внутри функции, там мы
@@ -79,8 +58,8 @@ initialCards.forEach(function (item) {
   newElementAdd.querySelector(".element__img").src = item.link;
   //Добавляем alt картинки из массива
   newElementAdd.querySelector(".element__img").alt = item.alt;
-  //Затем перед карточками "elementsCardsAll" в начале выбрасываем это все c помощью prepend
-  elementsCardsAll.prepend(newElementAdd);
+  //Затем перед карточками "elementsCard" в начале выбрасываем это все c помощью prepend
+  elementsCard.prepend(newElementAdd);
 });
 
 //Функция изменения текста title в форме
@@ -100,14 +79,15 @@ function changeColorTextSubtitle() {
   RemoveSubitle.value = "";
   textValuePopupSubtitle.classList.remove("popup__text_color-font_grey");
 }
-// Создаем функцию, открывать Попап
-function openPopup() {
-  popupEditProfile.classList.add("popup_opened");
+
+//Новые функция открыть/закрыть попап и нажатие на крестик|28/07/2022|
+function popupOpen(modalWindow) {
+  modalWindow.classList.add("popup_opened");
 }
 
-// Создаем функцию, удалять класс c flex
-function closePopup() {
-  popupEditProfile.classList.remove("popup_opened");
+function popupClose(modalWindow) {
+  modalWindow.classList.remove("popup_opened");
+  console.log("Работает клоз");
 }
 
 //ОБРАБОТЧИКИ
@@ -124,37 +104,34 @@ textValuePopupSubtitle.addEventListener("click", changeColorTextSubtitle);
 // 1 POPUP
 //Включаем кнопку, дословно добавляем к классу popup + класс popup-Open
 buttonEdit.addEventListener("click", function () {
-  openPopup();
-  // popupEditProfile.classList.add("popup_opened");
+  popupOpen(popupEditProfile);
   titleEdit.value = title.textContent;
   subTitleEdit.value = subTitle.textContent;
 });
 
 //Закрываем наш попап крестиком без сохранения с помощью функции
-popupCloseButton.addEventListener("click", closePopup);
+popupButtonCloseEditProfile.addEventListener("click", function () {
+  popupClose(popupEditProfile);
+});
 
 //Здесь при нажатие кнопки сохранить мышкой или enter закроем и сохраним
 popupFormEditPofileTable.addEventListener("submit", function (event) {
   event.preventDefault();
   title.textContent = titleEdit.value;
   subTitle.textContent = subTitleEdit.value;
-  closePopup();
+  popupClose(popupEditProfile);
 });
 
 // 2 POPUP
 //Форма редактирования
 //Включаем кнопку, дословно добавляем к классу popup_add + класс popup-Open
 buttonAddButton.addEventListener("click", function () {
-  popupAdd.classList.add("popup_opened");
+  popupOpen(popupAdd);
 });
 
-//Закрываем наш попап edit крестиком без сохранения с помощью функции
-popupEditCloseButton.addEventListener("click", closePopupEdit);
-
 //Здесь при нажатие кнопки сохранить мышкой или enter закроем и сохраним
-popupFormEditPofileTable.addEventListener("submit", function (event) {
-  event.preventDefault();
-  closePopupEdit();
+popupEditCloseButton.addEventListener("click", function () {
+  popupClose(popupAdd);
 });
 
 //ФУНКЦИЯ - Добавление данных форму
@@ -175,16 +152,14 @@ popupAdd.addEventListener("submit", function (event) {
   //Также делаем здесь, указываем, что нужно закинуть в src и туда кидаем ссылку
   todoNewCard.querySelector(".element__img").src = link;
   //Теперь берем константу где указан блок Ul "Elements", перед вложением li (prepend) укладываем нашу измененную константу
-  elementsCardsAll.prepend(todoNewCard);
-  closePopupEdit();
-  //  Функция - корректировка текста
-  CorrectTextForm();
+  elementsCard.prepend(todoNewCard);
+  popupClose(popupAdd);
 });
 
 // ЧЕРНОЕ СЕРДЦЕ при КЛИКЕ
 
 //При клике на сердце за этим следит evt
-elementsCardsAll.addEventListener("click", function (evt) {
+elementsCard.addEventListener("click", function (evt) {
   // будет найден с помощью targe имеено этот класс - кидаем его в константу Pushlike
   //будет следить за все где нажмем, то что есть в классе "elements"
   const clickLike = evt.target;
@@ -196,7 +171,7 @@ elementsCardsAll.addEventListener("click", function (evt) {
 });
 
 //При клике на Trash за этим следит evt
-elementsCardsAll.addEventListener("click", function (evt) {
+elementsCard.addEventListener("click", function (evt) {
   // будет найден с помощью target (ссылка на объект, которым было
   //инициировано событие. Например, если событие произошло на поле
   // ввода, мы получим ссылку на этот DOM элемент.) именно этот
@@ -210,7 +185,7 @@ elementsCardsAll.addEventListener("click", function (evt) {
 });
 
 //При клике на картинку за этим следит evt
-elementsCardsAll.addEventListener("click", function (evt) {
+elementsCard.addEventListener("click", function (evt) {
   // будет найден с помощью target (ссылка на объект, которым было
   //инициировано событие. Например, если событие произошло на поле
   // ввода, мы получим ссылку на этот DOM элемент.) именно этот
@@ -220,22 +195,18 @@ elementsCardsAll.addEventListener("click", function (evt) {
   // то сделаем следующее:
   if (clickImg.classList.contains("element__img")) {
     //Убираем наш  dispalay none c добавлением класса popup_opened в наш попап
-    popupImg.classList.add("popup_opened");
+    popupOpen(popupBigOpenImage);
 
-    // Создаем функцию, удалять класс popup_opened
-    const closePopupEdit = () => {
-      //удаляем класс popup_opened из попапа с id popup-photo
-      popupImg.classList.remove("popup_opened");
-    };
     //Закрываем наш попап крестиком с помощью функции (если событие произошло нажали на крестик
-    // buttonPopupBigImgClose в нем класс popup__close)
-    buttonPopupBigImgClose.addEventListener("click", closePopupEdit);
+    buttonPopupBigImageClose.addEventListener("click", function () {
+      popupClose(popupBigOpenImage);
+    });
     //закидываем ссылку фото Элемента на которую нажали и название картинки
     const link = clickImg.src;
     const elementImgBig = clickImg.closest(".element");
     const titleImg = elementImgBig.querySelector(".element__text").textContent;
     //Теперь эту сслыку забрасываем в наш попап в src
-    popupImg.querySelector(".popup__photo").src = link;
-    popupImg.querySelector(".popup__title-img").textContent = titleImg;
+    popupBigOpenImage.querySelector(".popup__photo").src = link;
+    popupBigOpenImage.querySelector(".popup__title-img").textContent = titleImg;
   }
 });
