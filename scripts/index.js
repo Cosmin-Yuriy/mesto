@@ -42,24 +42,31 @@ const newElement = document.querySelector("#newElement");
 
 //ФУНКЦИИ
 
+
+//Функция добавление новых картинок |27/07/2022|
+function cardCreate(NewCard, title, link, alt) {
+  //теперь находим класс Тайтла в контстанте todoNewCard, с помощью textContent кладем туда нашу константу с title
+  NewCard.querySelector(".element__text").textContent = title;
+  //Также делаем здесь, указываем, что нужно закинуть в src и туда кидаем ссылку
+  NewCard.querySelector(".element__img").src = link;
+  //Добавляем alt картинки из массива
+  NewCard.querySelector(".element__img").alt = alt;
+}
+
+function cardRender (elementCardPage, elementAdd) {
+  elementCardPage.prepend(elementAdd);
+}
 // Здесь мы перебираем массив методом forEach - аргументом выступает функция (item туда
 // направляется каждый элемент массива, соответсвенно каждая итерации внутри функции, там мы
 // и колдуем также как и в For цикле)
 initialCards.forEach(function (item) {
   // обязательно вставлять cloneNode в цикл, иначе не будет заново клонироваться объект/элемент
   const newElementAdd = newElement.content.cloneNode(true);
-  //берем нашу константу через къериселектор указываем какой класс берем, и то, что мы будем
-  //колдавать с текстом "textContent" - туда забрасываем из массива, что указываем "item"
-  //и объект "name"
-  newElementAdd.querySelector(".element__text").textContent = item.name;
-  //берем нашу константу через къериселектор указываем какой класс берем, и то, что мы будем
-  //колдавать с ссылкой "src" - туда забрасываем из массива, что указываем "item"
-  //и объект "link"
-  newElementAdd.querySelector(".element__img").src = item.link;
-  //Добавляем alt картинки из массива
-  newElementAdd.querySelector(".element__img").alt = item.alt;
-  //Затем перед карточками "elementsCard" в начале выбрасываем это все c помощью prepend
-  elementsCard.prepend(newElementAdd);
+//Функция добавление карточки
+  cardCreate(newElementAdd, item.name, item.link, item.alt);
+//
+cardRender(elementsCard, newElementAdd);
+// elementsCard.prepend(newElementAdd);
 });
 
 //Функция изменения текста title в форме
@@ -89,6 +96,8 @@ function popupClose(modalWindow) {
   modalWindow.classList.remove("popup_opened");
   console.log("Работает клоз");
 }
+
+
 
 //ОБРАБОТЧИКИ
 
@@ -143,16 +152,17 @@ popupAdd.addEventListener("submit", function (event) {
   //Константа, что текст Титла, что ввели в форме
   const titleCardNew = textValuePopupTitle.value;
   //Константа, ссылка на картинку, что ввели в форме
-  const link = textValuePopupSubtitle.value;
+  const linkCardNew = textValuePopupSubtitle.value;
+  const altCardNew = "Новая картинка";
   //Перекидываем в константу темлейт, открываем его - clone(true)
   const todoNewCard = templatePopform.content.cloneNode(true);
 
-  //теперь находим класс Тайтла в контстанте todoNewCard, с помощью textContent кладем туда нашу константу с title
-  todoNewCard.querySelector(".element__text").textContent = titleCardNew;
-  //Также делаем здесь, указываем, что нужно закинуть в src и туда кидаем ссылку
-  todoNewCard.querySelector(".element__img").src = link;
+  //вызваем функцию которая добавляет карточку новую
+  cardCreate(todoNewCard, titleCardNew, linkCardNew, altCardNew);
+
   //Теперь берем константу где указан блок Ul "Elements", перед вложением li (prepend) укладываем нашу измененную константу
-  elementsCard.prepend(todoNewCard);
+  cardRender(elementsCard, todoNewCard);
+  //elementsCard.prepend(todoNewCard);
   popupClose(popupAdd);
 });
 
@@ -203,10 +213,12 @@ elementsCard.addEventListener("click", function (evt) {
     });
     //закидываем ссылку фото Элемента на которую нажали и название картинки
     const link = clickImg.src;
+    const alt = clickImg.alt;
     const elementImgBig = clickImg.closest(".element");
     const titleImg = elementImgBig.querySelector(".element__text").textContent;
     //Теперь эту сслыку забрасываем в наш попап в src
     popupBigOpenImage.querySelector(".popup__photo").src = link;
     popupBigOpenImage.querySelector(".popup__title-img").textContent = titleImg;
+    popupBigOpenImage.querySelector(".popup__photo").alt = alt;
   }
 });
