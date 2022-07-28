@@ -26,7 +26,6 @@ const textValuePopupSubtitle = document.querySelector("#text-input-subtitle");
 const elementsCard = document.querySelector(".elements");
 
 //Сделали переменную с помощью id для текста title и subtitle
-const templatePopform = document.querySelector(".template-todo");
 //ДЛЯ POPUP c КАРТИНКОЙ
 //Найдем наш попап с картинкой и закинем его в константу PopupImg
 const popupBigOpenImage = document.querySelector("#popup-photo");
@@ -38,8 +37,6 @@ const buttonPopupBigImageClose = document.querySelector(
 
 const popupPhoto = document.querySelector("#popup-photo");
 const newElement = document.querySelector("#newElement");
-
-//создаем константу, из списка карточек Ul - li
 
 //ФУНКЦИИ
 
@@ -94,7 +91,6 @@ function popupOpen(modalWindow) {
 
 function popupClose(modalWindow) {
   modalWindow.classList.remove("popup_opened");
-  console.log("Работает клоз");
 }
 
 // Функция для создании большой картинки
@@ -160,14 +156,13 @@ popupAdd.addEventListener("submit", function (event) {
   const linkCardNew = textValuePopupSubtitle.value;
   const altCardNew = "Новая картинка";
   //Перекидываем в константу темлейт, открываем его - clone(true)
-  const todoNewCard = templatePopform.content.cloneNode(true);
+  const todoNewCard = newElement.content.cloneNode(true);
 
   //вызваем функцию которая добавляет карточку новую
   cardCreate(todoNewCard, titleCardNew, linkCardNew, altCardNew);
 
   //Теперь берем константу где указан блок Ul "Elements", перед вложением li (prepend) укладываем нашу измененную константу
   cardRender(elementsCard, todoNewCard);
-  //elementsCard.prepend(todoNewCard);
   popupClose(popupAdd);
 });
 
