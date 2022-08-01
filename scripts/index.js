@@ -1,106 +1,186 @@
 //ПЕРЕМЕННЫЕ
 
-const title = document.querySelector(".profile__title");
-const subTitle = document.querySelector(".profile__subtitle");
-const popupEditProfile = document.querySelector("#popup_edit_profile");
-const popupButtonCloseEditProfile =
-  popupEditProfile.querySelector(".popup__close");
-const buttonEdit = document.querySelector(".profile__button-edit");
-const titleEdit = document.querySelector('.popup__text[name="name"]');
-const subTitleEdit = document.querySelector('.popup__text[name="subtitle"]');
-// Делаем константу для для title карточки
-const titleCard = document.querySelector(".element__text");
-const popupFormEditPofileTable = document.querySelector(
-  '.popup__form[name="popupFormEditPofileTable"]'
-);
-const buttonAddButton = document.querySelector(".profile__add-button");
-//Форма добавления ищем по айди и скидываем в константу
-const popupAdd = document.querySelector("#popup_add");
-//Сделали переменную с помощью id
-//теперь делаем постоянную ищем нужный класс который находится там
-const popupEditCloseButton = popupAdd.querySelector(".popup__close");
-//Сделали переменную с помощью id для текста title и subtitle ДЛЯ ПЛОХОГО МЕТОДА
-const textValuePopupTitle = document.querySelector("#text-input-title");
-const textValuePopupSubtitle = document.querySelector("#text-input-subtitle");
-//Кнопка like берем полность блок Elements
-const elementsCard = document.querySelector(".elements");
+// Делаем для удобства объект
+const elements = {
+  title: ".profile__title",
+  subTitle: ".profile__subtitle",
+  popupEditProfile: "#popup_edit_profile",
+  buttonEdit: ".profile__button-edit",
+  titleEdit: '.popup__text[name="name"]',
+  subTitleEdit: '.popup__text[name="subtitle"]',
+  popupFormEditPofileTable: '.popup__form[name="popupFormEditPofileTable',
+  buttonAddButton: ".profile__add-button",
+  popupAdd: "#popup_add",
+  textValuePopupTitle: "#text-input-title",
+  textValuePopupSubtitle: "#text-input-subtitle",
+  elementsCard: ".elements",
+  popupBigOpenImage: "#popup-photo",
+  buttonPopupBigImageClose: ".popup__close[name='buttonPopupBigImgClose']",
+  newElement: "#newElement",
+  popupClose: ".popup__close",
+  popupOpened: "popup_opened",
+  elementText: ".element__text",
+  elementImage: ".element__img",
+  popupTextColorFontGrey: "popup__text_color-font_grey",
+  popupTitleImage: ".popup__title-img",
+  popupPhotoBig: ".popup__photo",
+  elementLike: ".element__like",
+  elementLikeActive: "element__like_active",
+  elementTrash: ".element__trash",
+  element: ".element",
+};
 
-//Сделали переменную с помощью id для текста title и subtitle
+const title = document.querySelector(elements.title);
+const subTitle = document.querySelector(elements.subTitle);
+const popupEditProfile = document.querySelector(elements.popupEditProfile);
+const popupButtonCloseEditProfile = popupEditProfile.querySelector(elements.popupClose);
+const buttonEdit = document.querySelector(elements.buttonEdit);
+const titleEdit = document.querySelector(elements.titleEdit);
+const subTitleEdit = document.querySelector(elements.subTitleEdit);
+const popupFormEditPofileTable = document.querySelector(
+  elements.popupFormEditPofileTable
+);
+const buttonAddButton = document.querySelector(elements.buttonAddButton);
+//Форма добавления ищем по айди и скидываем в константу
+const popupAdd = document.querySelector(elements.popupAdd);
+const popupEditCloseButton = popupAdd.querySelector(elements.popupClose);
+const textValuePopupTitle = document.querySelector(
+  elements.textValuePopupTitle
+);
+const textValuePopupSubtitle = document.querySelector(
+  elements.textValuePopupSubtitle
+);
+const elementsCard = document.querySelector(elements.elementsCard);
 //ДЛЯ POPUP c КАРТИНКОЙ
 //Найдем наш попап с картинкой и закинем его в константу PopupImg
-const popupBigOpenImage = document.querySelector("#popup-photo");
+const popupBigOpenImage = document.querySelector(elements.popupBigOpenImage);
 //Найдем в этом попапе нашу кнопку "закрытие" с классом  popup__close
 //и закинем это все в  popupClose
 const buttonPopupBigImageClose = document.querySelector(
-  ".popup__close[name='buttonPopupBigImgClose']"
+  elements.buttonPopupBigImageClose
 );
+const popupPhoto = document.querySelector(elements.popupBigOpenImage);
+const popupPhotoBig = popupPhoto.querySelector(elements.popupPhotoBig);
+const newElement = document
+  .querySelector(elements.newElement)
+  .content.querySelector(elements.element);
+//класс где находится title большой картинки (там пока пусто)
+const popupTitleImage = document.querySelector(elements.popupTitleImage);
 
-const popupPhoto = document.querySelector("#popup-photo");
-const newElement = document.querySelector("#newElement");
-
-//ФУНКЦИИ
-
-//Функция добавление новых картинок |27/07/2022|
-function cardCreate(NewCard, title, link, alt) {
+//  *****  ФУНКЦИИ  *****
+ 
+function cardCreateNew(name) {
+  const todoNewCard = newElement.cloneNode(true);
   //теперь находим класс Тайтла в контстанте todoNewCard, с помощью textContent кладем туда нашу константу с title
-  NewCard.querySelector(".element__text").textContent = title;
+  todoNewCard.querySelector(elements.elementText).textContent = name.name;
   //Также делаем здесь, указываем, что нужно закинуть в src и туда кидаем ссылку
-  NewCard.querySelector(".element__img").src = link;
+  todoNewCard.querySelector(elements.elementImage).src = name.link;
   //Добавляем alt картинки из массива
-  NewCard.querySelector(".element__img").alt = alt;
+  todoNewCard.querySelector(elements.elementImage).alt = name.alt;
+  const buttonTrash = todoNewCard.querySelector(elements.elementTrash);
+  const elementLike = todoNewCard.querySelector(elements.elementLike);
+  const elementImage = todoNewCard.querySelector(elements.elementImage);
+  const popupPhotoBigAddName = todoNewCard.querySelector(
+    elements.elementText
+  ).textContent;
+  const popupPhotoBigAddLink = todoNewCard.querySelector(
+    elements.elementImage
+  ).src;
+  const popupPhotoBigAddAlt = todoNewCard.querySelector(
+    elements.elementImage
+  ).alt;
+
+  const elementLikeActive = elements.elementLikeActive;
+  //console.log(elementLike);
+  //Удаляем карточки
+  buttonTrash.addEventListener("click", function () {
+    todoNewCard.remove();
+  });
+  //Лайкаем сердечки
+  elementLike.addEventListener("click", function () {
+    elementLike.classList.toggle(elementLikeActive);
+  });
+
+  //Большая картинка при нажатие на неё
+  elementImage.addEventListener("click", function () {
+    popupTitleImage.textContent = popupPhotoBigAddName;
+    popupPhotoBig.src = popupPhotoBigAddLink;
+    popupPhotoBig.alt = popupPhotoBigAddAlt;
+//добавляем open class
+    popupOpen(popupBigOpenImage);
+    //нажали на крестик - закрыли
+    buttonPopupBigImageClose.addEventListener("click", function () {
+      popupClose(popupBigOpenImage);
+    });
+  });
+
+  return todoNewCard;
 }
 
-function cardRender(elementCardPage, elementAdd) {
-  elementCardPage.prepend(elementAdd);
+//Делаем функцию что б добавлялись карточки, как работает - пока понятно на 50%
+function renderCard(data, container) {
+  const cardAdd = cardCreateNew(data);
+  container.prepend(cardAdd);
 }
-// Здесь мы перебираем массив методом forEach - аргументом выступает функция (item туда
-// направляется каждый элемент массива, соответсвенно каждая итерации внутри функции, там мы
-// и колдуем также как и в For цикле)
-initialCards.forEach(function (item) {
-  // обязательно вставлять cloneNode в цикл, иначе не будет заново клонироваться объект/элемент
-  const newElementAdd = newElement.content.cloneNode(true);
-  //Функция добавление карточки
-  cardCreate(newElementAdd, item.name, item.link, item.alt);
-  //
-  cardRender(elementsCard, newElementAdd);
-  // elementsCard.prepend(newElementAdd);
+
+//берет создание карточек "cardCreate" и с помощью цикла вставляет на страницу
+function creatCardsPage() {
+  initialCards.forEach((item) => renderCard(item, elementsCard));
+  //Прошу, это нужно мне оставить, что б понимать логику функции =>
+  // initialCards.forEach(cardCreateNew);
+}
+
+//вызываем функцию для добавление карточек из массива
+creatCardsPage();
+
+//Добавление данных форму
+popupAdd.addEventListener("submit", function (event) {
+  //что б не перезагружалась страница
+  event.preventDefault();
+  const newCard = [
+    {
+      //Константа, что текст Титла, что ввели в форме
+      name: textValuePopupTitle.value,
+      //Константа, ссылка на картинку, что ввели в форме
+      link: textValuePopupSubtitle.value,
+      alt: "Новая картинка",
+    },
+  ];
+  function CardsPage() {
+    newCard.forEach((item) => renderCard(item, elementsCard));
+    // addCard.forEach(cardCreateNew);
+  }
+  CardsPage();
+  popupClose(popupAdd);
 });
 
-//Функция изменения текста title в форме
+//изменения текста title в форме
 function changeColorTextTitle() {
   //Удаляем текст Value
-  let RemoveTitle = document.getElementById("text-input-title");
+  let RemoveTitle = document.querySelector(elements.textValuePopupTitle);
   //Делаем там пустую строку
   RemoveTitle.value = "";
-  textValuePopupTitle.classList.remove("popup__text_color-font_grey");
+  textValuePopupTitle.classList.remove(elements.popupTextColorFontGrey);
 }
 
-//Функция изменения текста subTitle в форме
+//изменения текста subTitle в форме
 function changeColorTextSubtitle() {
   //Удаляем текст Value
-  let RemoveSubitle = document.getElementById("text-input-subtitle");
+  let RemoveSubitle = document.querySelector(elements.textValuePopupSubtitle);
   //Делаем там пустую строку
   RemoveSubitle.value = "";
-  textValuePopupSubtitle.classList.remove("popup__text_color-font_grey");
+  textValuePopupSubtitle.classList.remove(elements.popupTextColorFontGrey);
 }
 
-//Новые функция открыть/закрыть попап и нажатие на крестик|28/07/2022|
+//Открыть/закрыть попап и нажатие на крестик
 function popupOpen(modalWindow) {
-  modalWindow.classList.add("popup_opened");
+  modalWindow.classList.add(elements.popupOpened);
 }
-
 function popupClose(modalWindow) {
-  modalWindow.classList.remove("popup_opened");
+  modalWindow.classList.remove(elements.popupOpened);
 }
 
-// Функция для создании большой картинки
-function newCardBig(element, title, link, alt) {
-  element.querySelector(".popup__title-img").textContent = title;
-  element.querySelector(".popup__photo").src = link;
-  element.querySelector(".popup__photo").alt = alt;
-}
-
-//ОБРАБОТЧИКИ
+//  *****  ОБРАБОТЧИКИ *****
 
 // при нажатии на value меняется цвет title
 const TextEditNewForm = textValuePopupTitle.addEventListener(
@@ -111,7 +191,7 @@ const TextEditNewForm = textValuePopupTitle.addEventListener(
 // при нажатии на value меняется цвет subTitle
 textValuePopupSubtitle.addEventListener("click", changeColorTextSubtitle);
 
-// 1 POPUP
+// Редактирование Титла 
 //Включаем кнопку, дословно добавляем к классу popup + класс popup-Open
 buttonEdit.addEventListener("click", function () {
   popupOpen(popupEditProfile);
@@ -119,7 +199,7 @@ buttonEdit.addEventListener("click", function () {
   subTitleEdit.value = subTitle.textContent;
 });
 
-//Закрываем наш попап крестиком без сохранения с помощью функции
+//Закрываем попап редактирования Титла без сохранения с помощью функции
 popupButtonCloseEditProfile.addEventListener("click", function () {
   popupClose(popupEditProfile);
 });
@@ -134,7 +214,7 @@ popupFormEditPofileTable.addEventListener("submit", function (event) {
 
 // 2 POPUP
 //Форма редактирования
-//Включаем кнопку, дословно добавляем к классу popup_add + класс popup-Open
+// Включаем кнопку, дословно добавляем к классу popup_add + класс popup-Open
 buttonAddButton.addEventListener("click", function () {
   popupOpen(popupAdd);
 });
@@ -142,83 +222,4 @@ buttonAddButton.addEventListener("click", function () {
 //Здесь при нажатие кнопки сохранить мышкой или enter закроем и сохраним
 popupEditCloseButton.addEventListener("click", function () {
   popupClose(popupAdd);
-});
-
-//ФУНКЦИЯ - Добавление данных форму
-
-//Здесь при нажатие кнопки сохранить мышкой или enter закроем и сохраним
-popupAdd.addEventListener("submit", function (event) {
-  //что б не перезагружалась страница
-  event.preventDefault();
-  //Константа, что текст Титла, что ввели в форме
-  const titleCardNew = textValuePopupTitle.value;
-  //Константа, ссылка на картинку, что ввели в форме
-  const linkCardNew = textValuePopupSubtitle.value;
-  const altCardNew = "Новая картинка";
-  //Перекидываем в константу темлейт, открываем его - clone(true)
-  const todoNewCard = newElement.content.cloneNode(true);
-
-  //вызваем функцию которая добавляет карточку новую
-  cardCreate(todoNewCard, titleCardNew, linkCardNew, altCardNew);
-
-  //Теперь берем константу где указан блок Ul "Elements", перед вложением li (prepend) укладываем нашу измененную константу
-  cardRender(elementsCard, todoNewCard);
-  popupClose(popupAdd);
-});
-
-// ЧЕРНОЕ СЕРДЦЕ при КЛИКЕ
-
-//При клике на сердце за этим следит evt
-elementsCard.addEventListener("click", function (evt) {
-  // будет найден с помощью targe имеено этот класс - кидаем его в константу Pushlike
-  //будет следить за все где нажмем, то что есть в классе "elements"
-  const clickLike = evt.target;
-  //смотрим через classlist (получаем список классов в "clickLike"), и с помощбю toogle -
-  //если нету класса "element__like_active", то его добавляем, если есть убираем
-  if (clickLike.classList.contains("element__like")) {
-    clickLike.classList.toggle("element__like_active");
-  }
-});
-
-//При клике на Trash за этим следит evt
-elementsCard.addEventListener("click", function (evt) {
-  // будет найден с помощью target (ссылка на объект, которым было
-  //инициировано событие. Например, если событие произошло на поле
-  // ввода, мы получим ссылку на этот DOM элемент.) именно этот
-  // класс - кидаем его в константу Pushlike
-  const clickTrash = evt.target;
-
-  if (clickTrash.classList.contains("element__trash")) {
-    //ищет ближайший родительский
-    clickTrash.closest(".element").remove();
-  }
-});
-
-//При клике на картинку за этим следит evt
-elementsCard.addEventListener("click", function (evt) {
-  // будет найден с помощью target (ссылка на объект, которым было
-  //инициировано событие. Например, если событие произошло на поле
-  // ввода, мы получим ссылку на этот DOM элемент.) именно этот
-  // класс - кидаем его в константу
-
-  const clickImg = evt.target;
-  //закидываем ссылку фото Элемента на которую нажали и название картинки
-  const linkClickImg = clickImg.src;
-  const altClickImg = clickImg.alt;
-  const elementImgBig = clickImg.closest(".element");
-  const titleClickImg =
-    elementImgBig.querySelector(".element__text").textContent;
-
-  //Если мы кликнули на картинку, а в ней, кликнутой есть стиль element__img,
-  // то сделаем следующее:
-  if (clickImg.classList.contains("element__img")) {
-    //Убираем наш  dispalay none c добавлением класса popup_opened в наш попап
-    popupOpen(popupBigOpenImage);
-    //Закрываем наш попап крестиком с помощью функции (если событие произошло нажали на крестик
-    buttonPopupBigImageClose.addEventListener("click", function () {
-      popupClose(popupBigOpenImage);
-    });
-    //Функция добавление данных в большое изображение
-    newCardBig(popupBigOpenImage, titleClickImg, linkClickImg, altClickImg);
-  }
 });
