@@ -1,18 +1,33 @@
 //ПЕРЕМЕННЫЕ
-
+const enableValidation = ({
+  popup: ".popup",
+  popupForm: ".popup__form",
+  popupInput: ".popup__input",
+  buttonFormEditPofileTable: ".popup__submit-button",
+  popupElementError: ".popup__element-error",
+  }); 
 // Делаем для удобства объект
 const config = {
+  // popup: ".popup",
   title: ".profile__title",
   subTitle: ".profile__subtitle",
   popupEditProfile: "#popup_edit_profile",
   buttonEdit: ".profile__button-edit",
-  titleEdit: '.popup__text[name="name"]',
-  subTitleEdit: '.popup__text[name="subtitle"]',
+  subTitleEdit: '.popup__input[name="subtitle"]',
+  //начало попапа
+  // popupForm: ".popup__form",
   popupFormEditPofileTable: '.popup__form[name="popupFormEditPofileTable',
+  titleEdit: '.popup__input[name="name"]',
+  // buttonFormEditPofileTable: ".popup__submit-button",
+  //popupFormEditPofileTableInvalid: ".popup__form_input_invalid",
+  // popupInput: ".popup__input",
+  //popupElementError: ".popup__element-error",
+  popupSubmitButtonDisable: ".popup__submit-button_disable",
+  //конец попапа
   buttonAddButton: ".profile__add-button",
   popupAdd: "#popup_add",
-  textValuePopupTitle: "#text-input-title",
-  textValuePopupSubtitle: "#text-input-subtitle",
+  textValuePopupTitle: "#input-image-title",
+  textValuePopupSubtitle: "#input-image-url",
   elementsCard: ".elements",
   popupBigOpenImage: "#popup-photo",
   buttonPopupBigImageClose: ".popup__close[name='buttonPopupBigImgClose']",
@@ -21,7 +36,7 @@ const config = {
   popupOpened: "popup_opened",
   elementText: ".element__text",
   elementImage: ".element__img",
-  popupTextColorFontGrey: "popup__text_color-font_grey",
+  popupTextColorFontGrey: "popup__input_color-font_grey",
   popupTitleImage: ".popup__title-img",
   popupPhotoBig: ".popup__photo",
   elementLike: ".element__like",
@@ -29,7 +44,21 @@ const config = {
   elementTrash: ".element__trash",
   element: ".element",
 };
-
+//enableValidation
+const popup = document.querySelectorAll(enableValidation.popup);
+const popupForm = document.querySelectorAll(enableValidation.popupForm);
+const popupInput = document.querySelectorAll(enableValidation.popupInput);
+const buttonFormEditPofileTable = document.querySelector(
+  enableValidation.buttonFormEditPofileTable
+);
+const popupSubmitButtonDisable = document.querySelectorAll(
+  enableValidation.popupSubmitButtonDisable
+);
+const popupElementError = document.querySelectorAll(enableValidation.popupElementError);
+const popupSubmitButton = document.querySelectorAll(
+  enableValidation.buttonFormEditPofileTable
+);
+//config
 const title = document.querySelector(config.title);
 const subTitle = document.querySelector(config.subTitle);
 const popupEditProfile = document.querySelector(config.popupEditProfile);
@@ -42,7 +71,10 @@ const subTitleEdit = document.querySelector(config.subTitleEdit);
 const popupFormEditPofileTable = document.querySelector(
   config.popupFormEditPofileTable
 );
+
+const popupFormEditPofileTableInvalid = config.popupFormEditPofileTableInvalid;
 const buttonAddButton = document.querySelector(config.buttonAddButton);
+
 //Форма добавления ищем по айди и скидываем в константу
 const popupAdd = document.querySelector(config.popupAdd);
 const popupEditCloseButton = popupAdd.querySelector(config.popupClose);
@@ -66,6 +98,8 @@ const newElement = document
   .content.querySelector(config.element);
 //класс где находится title большой картинки (там пока пусто)
 const popupTitleImage = document.querySelector(config.popupTitleImage);
+//массив из всех попапов
+const popupArr = [popupAdd, popupBigOpenImage, popupEditProfile];
 
 //  *****  ФУНКЦИИ  *****
 
@@ -81,7 +115,7 @@ function createCard(card) {
   const elementLikeActive = config.elementLikeActive;
   elementImage.src = card.link;
   elementImage.alt = card.alt;
-  console.log(card.src);
+  popupSubmitButton[1].setAttribute("disabled", "disabled");
   //Удаляем карточки
   buttonTrash.addEventListener("click", function () {
     newTodoCard.remove();
@@ -96,7 +130,6 @@ function createCard(card) {
     popupTitleImage.textContent = card.name;
     popupPhotoBig.src = card.link;
     popupPhotoBig.alt = card.alt;
-    console.log(card.src);
     //добавляем open class
     popupOpen(popupBigOpenImage);
   });
@@ -141,6 +174,7 @@ popupAdd.addEventListener("submit", function (event) {
   CreateNewCardPage();
   // popupClose(popupAdd);
 });
+
 changeColorText;
 //изменения текста title в форме
 function changeColorText(text) {
@@ -164,6 +198,21 @@ buttonPopupBigImageClose.addEventListener("click", function () {
   popupClose(popupBigOpenImage);
 });
 
+
+
+//пробегаемся по массиву инпутов "inputPopupArr" берем в них { validity } и проверяем на  validity.valid тру или фолс
+//   //возврощает true or false
+function validButton(inputPopupArr, popupSubmitButton, index) {
+  //пробегаемся по массиву инпутов "inputPopupArr" берем в них { validity } и проверяем на  validity.valid тру или фолс
+  //возврощает true or false
+  const formIsValid = inputPopupArr.every(({ validity }) => validity.valid);
+  if (formIsValid) {
+    popupSubmitButton[index].removeAttribute("disabled");
+  } else {
+    popupSubmitButton[index].setAttribute("disabled", "disabled");
+  }
+}
+
 //  *****  ОБРАБОТЧИКИ *****
 
 // при нажатии на value меняется цвет title
@@ -177,11 +226,11 @@ textValuePopupSubtitle.addEventListener(
   "click",
   changeColorText(config.textValuePopupSubtitle)
 );
-
 // Редактирование Титла
 //Включаем кнопку, дословно добавляем к классу popup + класс popup-Open
 buttonEdit.addEventListener("click", function () {
   popupOpen(popupEditProfile);
+  popupSubmitButton[0].setAttribute("disabled", "disabled");
   titleEdit.value = title.textContent;
   subTitleEdit.value = subTitle.textContent;
 });
@@ -191,16 +240,14 @@ popupButtonCloseEditProfile.addEventListener("click", function () {
   popupClose(popupEditProfile);
 });
 
+//Форма редактирования и отправления Профиля TITLE / SUBTITLE
 //Здесь при нажатие кнопки сохранить мышкой или enter закроем и сохраним
 popupFormEditPofileTable.addEventListener("submit", function (event) {
   event.preventDefault();
-  title.textContent = titleEdit.value;
-  subTitle.textContent = subTitleEdit.value;
-  popupClose(popupEditProfile);
+  validProfile();
 });
 
 // 2 POPUP
-//Форма редактирования
 // Включаем кнопку, дословно добавляем к классу popup_add + класс popup-Open
 buttonAddButton.addEventListener("click", function () {
   popupOpen(popupAdd);
@@ -210,3 +257,8 @@ buttonAddButton.addEventListener("click", function () {
 popupEditCloseButton.addEventListener("click", function () {
   popupClose(popupAdd);
 });
+
+
+
+
+

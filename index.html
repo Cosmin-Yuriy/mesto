@@ -48,10 +48,12 @@
         <button class="popup__close" aria-label="сlose">
           <img src="./images/close-icon.svg" alt="Кнопка закрыть" class="popup__close-icon">
         </button>
-        <form name="popupFormEditPofileTable" class="popup__form">
+        <form name="popupFormEditPofileTable" class="popup__form" novalidate>
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input name="name" class="popup__text" value="" required type=text>
-          <input name="subtitle" class="popup__text" value="" required type=text>
+          <input id="input-profile-title" name="name" class="popup__input" value="" required minlength="2" maxlength="40" type=text >
+          <span class="popup__element-error"></span>
+          <input id="input-profile-subtitle" name="subtitle" class="popup__input" value="" required minlength="2" maxlength="200" type=text>
+          <span class="popup__element-error"></span>
           <button class="popup__submit-button" type="submit">
             Сохранить
           </button>
@@ -65,12 +67,14 @@
         <button class="popup__close" aria-label="сlose">
           <img src="./images/close-icon.svg" alt="Кнопка закрытия" class="popup__close-icon">
         </button>
-        <form action="#" class="popup__form">
+        <form action="#" class="popup__form" novalidate>
           <h2 class="popup__title">Новое место</h2>
-          <input id="text-input-title" name="name" class="popup__text popup__text_color-font_grey" value=""
+          <input id="input-image-title" name="name" class="popup__input popup__input_color-font_grey" value=""
             placeholder="Название" required type=text>
-          <input id="text-input-subtitle" name="subtitle" class="popup__text popup__text_color-font_grey" value=""
+            <span class="popup__element-error"></span>
+          <input id="input-image-url" name="subtitle" class="popup__input popup__input_color-font_grey" value=""
             placeholder="Ссылка на картинку" required type=url>
+            <span class="popup__element-error"></span>
           <button class="popup__submit-button" type="submit">
             Создать
           </button>
@@ -105,6 +109,7 @@
   </template>
   <script src="./scripts/cards.js" async></script>
   <script src="./scripts/index.js" async></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 
 </html>
