@@ -8,20 +8,14 @@ const enableValidation = ({
   }); 
 // Делаем для удобства объект
 const config = {
-  // popup: ".popup",
   title: ".profile__title",
   subTitle: ".profile__subtitle",
   popupEditProfile: "#popup_edit_profile",
   buttonEdit: ".profile__button-edit",
   subTitleEdit: '.popup__input[name="subtitle"]',
   //начало попапа
-  // popupForm: ".popup__form",
   popupFormEditPofileTable: '.popup__form[name="popupFormEditPofileTable',
   titleEdit: '.popup__input[name="name"]',
-  // buttonFormEditPofileTable: ".popup__submit-button",
-  //popupFormEditPofileTableInvalid: ".popup__form_input_invalid",
-  // popupInput: ".popup__input",
-  //popupElementError: ".popup__element-error",
   popupSubmitButtonDisable: ".popup__submit-button_disable",
   //конец попапа
   buttonAddButton: ".profile__add-button",
