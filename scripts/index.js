@@ -6,15 +6,17 @@ const validationConfig = {
   buttonFormEditPofileTable: ".popup__submit-button",
   popupElementError: ".popup__element-error",
 };
+
 // Делаем для удобства объект
 const config = {
+  popup: ".popup",
   title: ".profile__title",
   subTitle: ".profile__subtitle",
   popupEditProfile: "#popup_edit_profile",
   buttonEdit: ".profile__button-edit",
   subTitleEdit: '.popup__input[name="subtitle"]',
   //начало попапа
-  popupFormEditPofileTable: '.popup__form[name="popupFormEditPofileTable',
+  popupFormEditPofileTable: '.popup__form[name="popupFormEditPofileTable"]',
   titleEdit: '.popup__input[name="name"]',
   popupSubmitButtonDisable: ".popup__submit-button_disable",
   //конец попапа
@@ -39,7 +41,7 @@ const config = {
   element: ".element",
 };
 //validationConfig
-const popups = document.querySelectorAll(validationConfig.popup);
+
 const popupForm = document.querySelectorAll(validationConfig.popupForm);
 const popupInput = document.querySelectorAll(validationConfig.popupInput);
 const buttonFormEditPofileTable = document.querySelector(
@@ -55,6 +57,7 @@ const popupSubmitButton = document.querySelectorAll(
   validationConfig.buttonFormEditPofileTable
 );
 //config
+const popups = document.querySelectorAll(config.popup);
 const title = document.querySelector(config.title);
 const subTitle = document.querySelector(config.subTitle);
 const popupEditProfile = document.querySelector(config.popupEditProfile);
@@ -95,21 +98,17 @@ const newElement = document
 //класс где находится title большой картинки (там пока пусто)
 const popupTitleImage = document.querySelector(config.popupTitleImage);
 //массив из всех попапов
-//const popupArr = [popupAdd, popupBigOpenImage, popupEditProfile];
-
 
 const ESC_CODE = "Escape";
 //  *****  ФУНКЦИИ  *****
 
-
 //ЗАКРЫТИЕ ПОПАПА С ПОМОЩЬЮ ESC
 function closeByEsc(evt) {
   if (evt.key === ESC_CODE) {
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup); 
+    const openedPopup = document.querySelector(".popup_opened");
+    closePopup(openedPopup);
   }
-} 
-
+}
 
 function createCard(card) {
   const newTodoCard = newElement.cloneNode(true);
@@ -123,7 +122,7 @@ function createCard(card) {
   const elementLikeActive = config.elementLikeActive;
   elementImage.src = card.link;
   elementImage.alt = card.alt;
-  //popupSubmitButton[1].setAttribute("disabled", "disabled");
+
   //Удаляем карточки
   buttonTrash.addEventListener("click", function () {
     newTodoCard.remove();
@@ -173,27 +172,8 @@ popupAdd.addEventListener("submit", function (event) {
 
   renderCard(data, elementsCard);
   closePopup(popupAdd);
-
-  // const newCard = [
-
-  //   {
-  //     //Константа, что текст Титла, что ввели в форме
-  //     name: textValuePopupTitle.value,
-  //     //Константа, ссылка на картинку, что ввели в форме
-  //     link: textValuePopupSubtitle.value,
-  //     alt: textValuePopupTitle.value,
-  //   },
-  // ];
-  // function CreateNewCardPage() {
-  //   newCard.forEach((item) => renderCard(item, elementsCard));
-  //   closePopup(popupAdd);
-  //   // addCard.forEach(cardCreateNew);
-  // }
-  // CreateNewCardPage();
-  // closePopup(popupAdd);
 });
 
-//changeColorText;
 //изменения текста title в форме
 function changeColorText(text) {
   //Удаляем текст Value
@@ -218,12 +198,12 @@ function openPopup(modalWindow) {
   });
   //стираем данные из инпутов
   deleteText();
-  document.addEventListener('keydown',  closeByEsc);
+  document.addEventListener("keydown", closeByEsc);
 }
 
 function closePopup(modalWindow) {
   modalWindow.classList.remove(config.popupOpened);
-  document.addEventListener('keydown',  closeByEsc);
+  document.addEventListener("keydown", closeByEsc);
 }
 
 //Открыть/закрыть попап большой картинки
@@ -261,7 +241,6 @@ textValuePopupSubtitle.addEventListener(
 //Включаем кнопку, дословно добавляем к классу popup + класс popup-Open
 buttonEdit.addEventListener("click", function () {
   openPopup(popupEditProfile);
-  //popupSubmitButton[0].setAttribute("disabled", "disabled");
   titleEdit.value = title.textContent;
   subTitleEdit.value = subTitle.textContent;
 });
@@ -289,39 +268,18 @@ popupEditCloseButton.addEventListener("click", function () {
   closePopup(popupAdd);
 });
 
-
-
-
 //ЗАКРЫТИЯ ПОПАПА ДОПОЛНИТЕЛЬНЫЕ
 //закрытие попапа нажатие на паранжу
-function popupCloseOutPopup(popupElement, popups) {
+function popupCloseOutPopup(popupElement) {
   popupElement.addEventListener("click", function (evt) {
     if (evt.target === evt.currentTarget) {
       popupElement.classList.remove(config.popupOpened);
-  //    closePopup(element);
-      // popups.forEach((element) => {
-      //   closePopup(element);
-      // });
     }
   });
 }
 
-
-//ЗАКРЫТИЕ ПОПАПА С ПОМОЩЬЮ ESC
-// function popupCloseKeydownEscape(popups) {
-//   document.addEventListener("keydown", function (evt) {
-//     if (evt.key === "Escape") {
-//       popups.forEach((element) => {
-//         closePopup(element);
-//       });
-//     }
-//   });
-// }
 //ЗАКРЫТИЕ ПОПАПА НАЖАТИЕМ НА ПАРАНЖУ
 popups.forEach((popupElement) => {
   //закрытие попапа нажатие на паранжу
   popupCloseOutPopup(popupElement, popups);
-  //Закрытие попапа с помощью esc
- // document.addEventListener('keydown',  closeByEsc)
-  //popupCloseKeydownEscape(popups);
 });
