@@ -43,16 +43,16 @@ const config = {
 //validationConfig
 
 const popupForm = document.querySelectorAll(validationConfig.popupForm);
-const popupInput = document.querySelectorAll(validationConfig.popupInput);
-const buttonFormEditPofileTable = document.querySelector(
-  validationConfig.buttonFormEditPofileTable
-);
-const popupSubmitButtonDisable = document.querySelectorAll(
-  validationConfig.popupSubmitButtonDisable
-);
-const popupElementError = document.querySelectorAll(
-  validationConfig.popupElementError
-);
+//const popupInput = document.querySelectorAll(validationConfig.popupInput);
+// const buttonFormEditPofileTable = document.querySelector(
+//   validationConfig.buttonFormEditPofileTable
+// );
+// const popupSubmitButtonDisable = document.querySelectorAll(
+//   validationConfig.popupSubmitButtonDisable
+// );
+// const popupElementError = document.querySelectorAll(
+//   validationConfig.popupElementError
+// );
 const popupSubmitButton = document.querySelectorAll(
   validationConfig.buttonFormEditPofileTable
 );
