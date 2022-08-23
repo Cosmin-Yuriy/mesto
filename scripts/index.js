@@ -1,11 +1,11 @@
 //ПЕРЕМЕННЫЕ
-const enableValidation = ({
+const validationConfig = {
   popup: ".popup",
   popupForm: ".popup__form",
   popupInput: ".popup__input",
   buttonFormEditPofileTable: ".popup__submit-button",
   popupElementError: ".popup__element-error",
-  }); 
+};
 // Делаем для удобства объект
 const config = {
   title: ".profile__title",
@@ -38,19 +38,21 @@ const config = {
   elementTrash: ".element__trash",
   element: ".element",
 };
-//enableValidation
-const popup = document.querySelectorAll(enableValidation.popup);
-const popupForm = document.querySelectorAll(enableValidation.popupForm);
-const popupInput = document.querySelectorAll(enableValidation.popupInput);
+//validationConfig
+const popups = document.querySelectorAll(validationConfig.popup);
+const popupForm = document.querySelectorAll(validationConfig.popupForm);
+const popupInput = document.querySelectorAll(validationConfig.popupInput);
 const buttonFormEditPofileTable = document.querySelector(
-  enableValidation.buttonFormEditPofileTable
+  validationConfig.buttonFormEditPofileTable
 );
 const popupSubmitButtonDisable = document.querySelectorAll(
-  enableValidation.popupSubmitButtonDisable
+  validationConfig.popupSubmitButtonDisable
 );
-const popupElementError = document.querySelectorAll(enableValidation.popupElementError);
+const popupElementError = document.querySelectorAll(
+  validationConfig.popupElementError
+);
 const popupSubmitButton = document.querySelectorAll(
-  enableValidation.buttonFormEditPofileTable
+  validationConfig.buttonFormEditPofileTable
 );
 //config
 const title = document.querySelector(config.title);
@@ -81,7 +83,7 @@ const elementsCard = document.querySelector(config.elementsCard);
 //Найдем наш попап с картинкой и закинем его в константу PopupImg
 const popupBigOpenImage = document.querySelector(config.popupBigOpenImage);
 //Найдем в этом попапе нашу кнопку "закрытие" с классом  popup__close
-//и закинем это все в  popupClose
+//и закинем это все в  closePopup
 const buttonPopupBigImageClose = document.querySelector(
   config.buttonPopupBigImageClose
 );
@@ -93,9 +95,21 @@ const newElement = document
 //класс где находится title большой картинки (там пока пусто)
 const popupTitleImage = document.querySelector(config.popupTitleImage);
 //массив из всех попапов
-const popupArr = [popupAdd, popupBigOpenImage, popupEditProfile];
+//const popupArr = [popupAdd, popupBigOpenImage, popupEditProfile];
 
+
+const ESC_CODE = "Escape";
 //  *****  ФУНКЦИИ  *****
+
+
+//ЗАКРЫТИЕ ПОПАПА С ПОМОЩЬЮ ESC
+function closeByEsc(evt) {
+  if (evt.key === ESC_CODE) {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup); 
+  }
+} 
+
 
 function createCard(card) {
   const newTodoCard = newElement.cloneNode(true);
@@ -109,7 +123,7 @@ function createCard(card) {
   const elementLikeActive = config.elementLikeActive;
   elementImage.src = card.link;
   elementImage.alt = card.alt;
-  popupSubmitButton[1].setAttribute("disabled", "disabled");
+  //popupSubmitButton[1].setAttribute("disabled", "disabled");
   //Удаляем карточки
   buttonTrash.addEventListener("click", function () {
     newTodoCard.remove();
@@ -125,7 +139,7 @@ function createCard(card) {
     popupPhotoBig.src = card.link;
     popupPhotoBig.alt = card.alt;
     //добавляем open class
-    popupOpen(popupBigOpenImage);
+    openPopup(popupBigOpenImage);
   });
 
   return newTodoCard;
@@ -151,25 +165,35 @@ createCardsPage();
 popupAdd.addEventListener("submit", function (event) {
   //что б не перезагружалась страница
   event.preventDefault();
-  const newCard = [
-    {
-      //Константа, что текст Титла, что ввели в форме
-      name: textValuePopupTitle.value,
-      //Константа, ссылка на картинку, что ввели в форме
-      link: textValuePopupSubtitle.value,
-      alt: textValuePopupTitle.value,
-    },
-  ];
-  function CreateNewCardPage() {
-    newCard.forEach((item) => renderCard(item, elementsCard));
-    popupClose(popupAdd);
-    // addCard.forEach(cardCreateNew);
-  }
-  CreateNewCardPage();
-  // popupClose(popupAdd);
+  const data = {
+    name: textValuePopupTitle.value,
+    link: textValuePopupSubtitle.value,
+    alt: textValuePopupTitle.value,
+  };
+
+  renderCard(data, elementsCard);
+  closePopup(popupAdd);
+
+  // const newCard = [
+
+  //   {
+  //     //Константа, что текст Титла, что ввели в форме
+  //     name: textValuePopupTitle.value,
+  //     //Константа, ссылка на картинку, что ввели в форме
+  //     link: textValuePopupSubtitle.value,
+  //     alt: textValuePopupTitle.value,
+  //   },
+  // ];
+  // function CreateNewCardPage() {
+  //   newCard.forEach((item) => renderCard(item, elementsCard));
+  //   closePopup(popupAdd);
+  //   // addCard.forEach(cardCreateNew);
+  // }
+  // CreateNewCardPage();
+  // closePopup(popupAdd);
 });
 
-changeColorText;
+//changeColorText;
 //изменения текста title в форме
 function changeColorText(text) {
   //Удаляем текст Value
@@ -179,23 +203,36 @@ function changeColorText(text) {
   textValuePopupTitle.classList.remove(text);
 }
 
-//Открыть/закрыть все попапы (кроме большой картинки) и нажатие на крестик
-function popupOpen(modalWindow) {
-  modalWindow.classList.add(config.popupOpened);
+//стираем данный из инпутов
+function deleteText() {
+  textValuePopupTitle.value = "";
+  textValuePopupSubtitle.value = "";
 }
-function popupClose(modalWindow) {
+
+//Открыть/закрыть все попапы (кроме большой картинки) и нажатие на крестик
+function openPopup(modalWindow) {
+  modalWindow.classList.add(config.popupOpened);
+  //скорее всего нужно будет вынести функцию
+  popupSubmitButton.forEach((element) => {
+    element.setAttribute("disabled", "disabled");
+  });
+  //стираем данные из инпутов
+  deleteText();
+  document.addEventListener('keydown',  closeByEsc);
+}
+
+function closePopup(modalWindow) {
   modalWindow.classList.remove(config.popupOpened);
+  document.addEventListener('keydown',  closeByEsc);
 }
 
 //Открыть/закрыть попап большой картинки
 buttonPopupBigImageClose.addEventListener("click", function () {
-  popupClose(popupBigOpenImage);
+  closePopup(popupBigOpenImage);
 });
 
-
-
 //пробегаемся по массиву инпутов "inputPopupArr" берем в них { validity } и проверяем на  validity.valid тру или фолс
-//   //возврощает true or false
+//   //возвращает true or false
 function validButton(inputPopupArr, popupSubmitButton, index) {
   //пробегаемся по массиву инпутов "inputPopupArr" берем в них { validity } и проверяем на  validity.valid тру или фолс
   //возврощает true or false
@@ -223,15 +260,15 @@ textValuePopupSubtitle.addEventListener(
 // Редактирование Титла
 //Включаем кнопку, дословно добавляем к классу popup + класс popup-Open
 buttonEdit.addEventListener("click", function () {
-  popupOpen(popupEditProfile);
-  popupSubmitButton[0].setAttribute("disabled", "disabled");
+  openPopup(popupEditProfile);
+  //popupSubmitButton[0].setAttribute("disabled", "disabled");
   titleEdit.value = title.textContent;
   subTitleEdit.value = subTitle.textContent;
 });
 
 //Закрываем попап редактирования Титла без сохранения с помощью функции
 popupButtonCloseEditProfile.addEventListener("click", function () {
-  popupClose(popupEditProfile);
+  closePopup(popupEditProfile);
 });
 
 //Форма редактирования и отправления Профиля TITLE / SUBTITLE
@@ -244,15 +281,47 @@ popupFormEditPofileTable.addEventListener("submit", function (event) {
 // 2 POPUP
 // Включаем кнопку, дословно добавляем к классу popup_add + класс popup-Open
 buttonAddButton.addEventListener("click", function () {
-  popupOpen(popupAdd);
+  openPopup(popupAdd);
 });
 
 //Здесь при нажатие кнопки сохранить мышкой или enter закроем и сохраним
 popupEditCloseButton.addEventListener("click", function () {
-  popupClose(popupAdd);
+  closePopup(popupAdd);
 });
 
 
 
 
+//ЗАКРЫТИЯ ПОПАПА ДОПОЛНИТЕЛЬНЫЕ
+//закрытие попапа нажатие на паранжу
+function popupCloseOutPopup(popupElement, popups) {
+  popupElement.addEventListener("click", function (evt) {
+    if (evt.target === evt.currentTarget) {
+      popupElement.classList.remove(config.popupOpened);
+  //    closePopup(element);
+      // popups.forEach((element) => {
+      //   closePopup(element);
+      // });
+    }
+  });
+}
 
+
+//ЗАКРЫТИЕ ПОПАПА С ПОМОЩЬЮ ESC
+// function popupCloseKeydownEscape(popups) {
+//   document.addEventListener("keydown", function (evt) {
+//     if (evt.key === "Escape") {
+//       popups.forEach((element) => {
+//         closePopup(element);
+//       });
+//     }
+//   });
+// }
+//ЗАКРЫТИЕ ПОПАПА НАЖАТИЕМ НА ПАРАНЖУ
+popups.forEach((popupElement) => {
+  //закрытие попапа нажатие на паранжу
+  popupCloseOutPopup(popupElement, popups);
+  //Закрытие попапа с помощью esc
+ // document.addEventListener('keydown',  closeByEsc)
+  //popupCloseKeydownEscape(popups);
+});
