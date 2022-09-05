@@ -4,7 +4,7 @@ const validationConfig = {
   popupForm: ".popup__form",
   popupInput: ".popup__input",
   buttonFormEditPofileTable: ".popup__submit-button",
-  popupElementError: ".popup__element-error",
+  popupElementError: "popup__element-error",
 };
 
 // Делаем для удобства объект
@@ -211,18 +211,7 @@ buttonPopupBigImageClose.addEventListener("click", function () {
   closePopup(popupBigOpenImage);
 });
 
-//пробегаемся по массиву инпутов "inputPopupArr" берем в них { validity } и проверяем на  validity.valid тру или фолс
-//   //возвращает true or false
-function validButton(inputPopupArr, popupSubmitButton, index) {
-  //пробегаемся по массиву инпутов "inputPopupArr" берем в них { validity } и проверяем на  validity.valid тру или фолс
-  //возврощает true or false
-  const formIsValid = inputPopupArr.every(({ validity }) => validity.valid);
-  if (formIsValid) {
-    popupSubmitButton[index].removeAttribute("disabled");
-  } else {
-    popupSubmitButton[index].setAttribute("disabled", "disabled");
-  }
-}
+
 
 //  *****  ОБРАБОТЧИКИ *****
 
