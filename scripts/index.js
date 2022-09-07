@@ -166,6 +166,7 @@ popupAdd.addEventListener("submit", function (event) {
 
 
 //ДА, ЕСТЬ RESET, А ЕСТЬ и ТАКОЙ, КАК В ТРЕНАЖЕРЕ!
+//НО КАК РАБОТАЕТ RESET ТОТ ЖЕ в ДАННОМ СЛУЧАЕ НИКТО НИКОГДА НЕ ОБЪЯСНЯЛ!
 //Я ВЫБРАЛ, КАК В ТРЕНАЖЕРЕ!
 //ДАВАЙТЕ ПРИДЕРЖИВАТЬСЯ К КАКОМУ-ТО ОДНОМУ ФОРМАТУ?!
 //стираем данный из инпутов
@@ -182,6 +183,7 @@ function openPopup(modalWindow) {
     element.setAttribute("disabled", "disabled");
   });
   //стираем данные из инпутов
+  console.log(config.textValuePopupTitle);
   deleteTextInput();
   document.addEventListener("keydown", closeByEsc);
 }
