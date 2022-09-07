@@ -5,6 +5,7 @@ const validationConfig = {
   popupInput: ".popup__input",
   buttonFormEditPofileTable: ".popup__submit-button",
   popupElementError: "popup__element-error",
+  popupInputError:"popup__input_error"
 };
 
 // Делаем для удобства объект
@@ -18,7 +19,7 @@ const config = {
   //начало попапа
   popupFormEditPofileTable: '.popup__form[name="popupFormEditPofileTable"]',
   titleEdit: '.popup__input[name="name"]',
-  popupSubmitButtonDisable: ".popup__submit-button_disable",
+  popupSubmitButtonsDisable: ".popup__submit-button_disable",
   //конец попапа
   buttonAddButton: ".profile__add-button",
   popupAdd: "#popup_add",
@@ -27,7 +28,7 @@ const config = {
   elementsCard: ".elements",
   popupBigOpenImage: "#popup-photo",
   buttonPopupBigImageClose: ".popup__close[name='buttonPopupBigImgClose']",
-  newElement: "#newElement",
+  newElementIdTemplate: "#newElement",
   popupClose: ".popup__close",
   popupOpened: "popup_opened",
   elementText: ".element__text",
@@ -42,18 +43,7 @@ const config = {
 };
 //validationConfig
 
-const popupForm = document.querySelectorAll(validationConfig.popupForm);
-//const popupInput = document.querySelectorAll(validationConfig.popupInput);
-// const buttonFormEditPofileTable = document.querySelector(
-//   validationConfig.buttonFormEditPofileTable
-// );
-// const popupSubmitButtonDisable = document.querySelectorAll(
-//   validationConfig.popupSubmitButtonDisable
-// );
-// const popupElementError = document.querySelectorAll(
-//   validationConfig.popupElementError
-// );
-const popupSubmitButton = document.querySelectorAll(
+const popupSubmitButtons = document.querySelectorAll(
   validationConfig.buttonFormEditPofileTable
 );
 //config
@@ -92,8 +82,8 @@ const buttonPopupBigImageClose = document.querySelector(
 );
 const popupPhoto = document.querySelector(config.popupBigOpenImage);
 const popupPhotoBig = popupPhoto.querySelector(config.popupPhotoBig);
-const newElement = document
-  .querySelector(config.newElement)
+const newElementTemplate = document
+  .querySelector(config.newElementIdTemplate)
   .content.querySelector(config.element);
 //класс где находится title большой картинки (там пока пусто)
 const popupTitleImage = document.querySelector(config.popupTitleImage);
@@ -111,7 +101,7 @@ function closeByEsc(evt) {
 }
 
 function createCard(card) {
-  const newTodoCard = newElement.cloneNode(true);
+  const newTodoCard = newElementTemplate.cloneNode(true);
   //теперь находим класс Тайтла в контстанте newTodoCard, с помощью textContent кладем туда нашу константу с title
   newTodoCard.querySelector(config.elementText).textContent = card.name;
   //Также делаем здесь, указываем, что нужно закинуть в src и туда кидаем ссылку
@@ -121,7 +111,7 @@ function createCard(card) {
   const elementLike = newTodoCard.querySelector(config.elementLike);
   const elementLikeActive = config.elementLikeActive;
   elementImage.src = card.link;
-  elementImage.alt = card.alt;
+  elementImage.alt = card.name;
 
   //Удаляем карточки
   buttonTrash.addEventListener("click", function () {
@@ -151,14 +141,14 @@ function renderCard(data, container) {
 }
 
 //берет создание карточек "cardCreate" и с помощью цикла вставляет на страницу
-function createCardsPage() {
+function renderInitialCards() {
   initialCards.forEach((item) => renderCard(item, elementsCard));
   //Прошу, это нужно мне оставить, что б понимать логику функции =>
   // initialCards.forEach(cardCreateNew);
 }
 
 //вызываем функцию для добавление карточек из массива
-createCardsPage();
+renderInitialCards();
 
 //Добавление данных форму
 popupAdd.addEventListener("submit", function (event) {
@@ -174,17 +164,12 @@ popupAdd.addEventListener("submit", function (event) {
   closePopup(popupAdd);
 });
 
-//изменения текста title в форме
-function changeColorText(text) {
-  //Удаляем текст Value
-  const textRemove = document.querySelector(text);
-  //Делаем там пустую строку
-  textRemove.value = "";
-  textValuePopupTitle.classList.remove(text);
-}
 
+//ДА, ЕСТЬ RESET, А ЕСТЬ и ТАКОЙ, КАК В ТРЕНАЖЕРЕ!
+//Я ВЫБРАЛ, КАК В ТРЕНАЖЕРЕ!
+//ДАВАЙТЕ ПРИДЕРЖИВАТЬСЯ К КАКОМУ-ТО ОДНОМУ ФОРМАТУ?!
 //стираем данный из инпутов
-function deleteText() {
+function deleteTextInput() {
   textValuePopupTitle.value = "";
   textValuePopupSubtitle.value = "";
 }
@@ -193,11 +178,11 @@ function deleteText() {
 function openPopup(modalWindow) {
   modalWindow.classList.add(config.popupOpened);
   //скорее всего нужно будет вынести функцию
-  popupSubmitButton.forEach((element) => {
+  popupSubmitButtons.forEach((element) => {
     element.setAttribute("disabled", "disabled");
   });
   //стираем данные из инпутов
-  deleteText();
+  deleteTextInput();
   document.addEventListener("keydown", closeByEsc);
 }
 
@@ -211,23 +196,11 @@ buttonPopupBigImageClose.addEventListener("click", function () {
   closePopup(popupBigOpenImage);
 });
 
-
-
 //  *****  ОБРАБОТЧИКИ *****
 
-// при нажатии на value меняется цвет title
-textValuePopupTitle.addEventListener(
-  "click",
-  changeColorText(config.textValuePopupTitle)
-);
-
-// при нажатии на value меняется цвет subTitle
-textValuePopupSubtitle.addEventListener(
-  "click",
-  changeColorText(config.textValuePopupSubtitle)
-);
 // Редактирование Титла
 //Включаем кнопку, дословно добавляем к классу popup + класс popup-Open
+//ЭТО НЕБОЛЬШОЕ ОТКЛОНЕНИЕ КОТОРОЕ ВСЕМ ПОНРАВИЛОСЬ И МЫ ЕГО ВЕЗДЕ ОСТАВИЛИ!!!!
 buttonEdit.addEventListener("click", function () {
   openPopup(popupEditProfile);
   titleEdit.value = title.textContent;
@@ -243,7 +216,9 @@ popupButtonCloseEditProfile.addEventListener("click", function () {
 //Здесь при нажатие кнопки сохранить мышкой или enter закроем и сохраним
 popupFormEditPofileTable.addEventListener("submit", function (event) {
   event.preventDefault();
-  validProfile();
+  title.textContent = titleEdit.value;
+  subTitle.textContent = subTitleEdit.value;
+  closePopup(popupEditProfile);
 });
 
 // 2 POPUP
@@ -262,7 +237,7 @@ popupEditCloseButton.addEventListener("click", function () {
 function popupCloseOutPopup(popupElement) {
   popupElement.addEventListener("click", function (evt) {
     if (evt.target === evt.currentTarget) {
-      popupElement.classList.remove(config.popupOpened);
+      closePopup(popupElement);
     }
   });
 }
@@ -270,5 +245,5 @@ function popupCloseOutPopup(popupElement) {
 //ЗАКРЫТИЕ ПОПАПА НАЖАТИЕМ НА ПАРАНЖУ
 popups.forEach((popupElement) => {
   //закрытие попапа нажатие на паранжу
-  popupCloseOutPopup(popupElement, popups);
+  popupCloseOutPopup(popupElement);
 });
