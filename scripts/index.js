@@ -5,7 +5,7 @@ const validationConfig = {
   popupInput: ".popup__input",
   buttonFormEditPofileTable: ".popup__submit-button",
   popupElementError: "popup__element-error",
-  popupInputError:"popup__input_error"
+  popupInputError: "popup__input_error",
 };
 
 // Делаем для удобства объект
@@ -40,6 +40,7 @@ const config = {
   elementLikeActive: "element__like_active",
   elementTrash: ".element__trash",
   element: ".element",
+  formAdd: "#form_add",
 };
 //validationConfig
 
@@ -164,16 +165,19 @@ popupAdd.addEventListener("submit", function (event) {
   closePopup(popupAdd);
 });
 
-
 //ДА, ЕСТЬ RESET, А ЕСТЬ и ТАКОЙ, КАК В ТРЕНАЖЕРЕ!
 //НО КАК РАБОТАЕТ RESET ТОТ ЖЕ в ДАННОМ СЛУЧАЕ НИКТО НИКОГДА НЕ ОБЪЯСНЯЛ!
 //ЕСЛИ ВЫ ОБЪЯСНИТЕ, Я БУДУ ОЧЕНЬ РАД, И БЛАГОДАРЕН ВАМ!
 //Я ВЫБРАЛ, КАК В ТРЕНАЖЕРЕ, ТАК ДРУГОМУ НЕ УЧИЛИ:)
 //стираем данный из инпутов
-function deleteTextInput() {
-  textValuePopupTitle.value = "";
-  textValuePopupSubtitle.value = "";
+function deletePopupCardInputsText() {
+  document.querySelector(config.formAdd).reset();
 }
+
+// тебе нужно найти тег form -
+//  в котором лежат твои инпуты -
+//   textValuePopupTitle и textValuePopupSubtitle -
+//    и вызвать form.reset()
 
 //Открыть/закрыть все попапы (кроме большой картинки) и нажатие на крестик
 function openPopup(modalWindow) {
@@ -183,8 +187,7 @@ function openPopup(modalWindow) {
     element.setAttribute("disabled", "disabled");
   });
   //стираем данные из инпутов
-  console.log(config.textValuePopupTitle);
-  deleteTextInput();
+  deletePopupCardInputsText();
   document.addEventListener("keydown", closeByEsc);
 }
 
