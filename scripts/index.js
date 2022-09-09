@@ -165,10 +165,6 @@ popupAdd.addEventListener("submit", function (event) {
   closePopup(popupAdd);
 });
 
-//ДА, ЕСТЬ RESET, А ЕСТЬ и ТАКОЙ, КАК В ТРЕНАЖЕРЕ!
-//НО КАК РАБОТАЕТ RESET ТОТ ЖЕ в ДАННОМ СЛУЧАЕ НИКТО НИКОГДА НЕ ОБЪЯСНЯЛ!
-//ЕСЛИ ВЫ ОБЪЯСНИТЕ, Я БУДУ ОЧЕНЬ РАД, И БЛАГОДАРЕН ВАМ!
-//Я ВЫБРАЛ, КАК В ТРЕНАЖЕРЕ, ТАК ДРУГОМУ НЕ УЧИЛИ:)
 //стираем данный из инпутов
 function deletePopupCardInputsText() {
   document.querySelector(config.formAdd).reset();
