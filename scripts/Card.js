@@ -1,4 +1,4 @@
-class Card {
+ class Card {
   constructor(text, link) {
     // this._config = config;
     this._text = text;

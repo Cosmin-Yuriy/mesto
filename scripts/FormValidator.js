@@ -90,5 +90,5 @@ const newValidation = new FormValidator();
 
 newValidation.enableValidation();
 
-
-export default FormValidator;
+//Почему-то не работает export - import
+//export default FormValidator;
