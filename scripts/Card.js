@@ -67,5 +67,5 @@ function renderInitialCards() {
 
 renderInitialCards();
 
-
-export default Card;
+//Почему-то не работает export - import
+//export default Card;
