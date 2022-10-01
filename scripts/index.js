@@ -1,3 +1,6 @@
+ import {FormValidator} from './FormValidator.js'; 
+ import {Card} from './Card.js'; 
+
 //ПЕРЕМЕННЫЕ
 const validationConfig = {
   popup: ".popup",
@@ -101,55 +104,62 @@ function closeByEsc(evt) {
   }
 }
 
-function createCard(card) {
-  const newTodoCard = newElementTemplate.cloneNode(true);
-  //теперь находим класс Тайтла в контстанте newTodoCard, с помощью textContent кладем туда нашу константу с title
-  newTodoCard.querySelector(config.elementText).textContent = card.name;
-  //Также делаем здесь, указываем, что нужно закинуть в src и туда кидаем ссылку
-  const elementImage = newTodoCard.querySelector(config.elementImage);
-  //Добавляем alt картинки из массива
-  const buttonTrash = newTodoCard.querySelector(config.elementTrash);
-  const elementLike = newTodoCard.querySelector(config.elementLike);
-  const elementLikeActive = config.elementLikeActive;
-  elementImage.src = card.link;
-  elementImage.alt = card.name;
+// function createCard(card) {
+//   const newTodoCard = newElementTemplate.cloneNode(true);
+//   //теперь находим класс Тайтла в контстанте newTodoCard, с помощью textContent кладем
+//   // туда нашу константу с title
+//   newTodoCard.querySelector(config.elementText).textContent = card.name;
+//   //Также делаем здесь, указываем, что нужно закинуть в src и туда кидаем ссылку
+//   const elementImage = newTodoCard.querySelector(config.elementImage);
+//   //Добавляем alt картинки из массива
+//   const buttonTrash = newTodoCard.querySelector(config.elementTrash);
+//   const elementLike = newTodoCard.querySelector(config.elementLike);
+//   const elementLikeActive = config.elementLikeActive;
+//   elementImage.src = card.link;
+//   elementImage.alt = card.name;
 
-  //Удаляем карточки
-  buttonTrash.addEventListener("click", function () {
-    newTodoCard.remove();
-  });
-  //Лайкаем сердечки
-  elementLike.addEventListener("click", function () {
-    elementLike.classList.toggle(elementLikeActive);
-  });
+//   //Удаляем карточки
+//   buttonTrash.addEventListener("click", function () {
+//     newTodoCard.remove();
+//   });
+//   //Лайкаем сердечки
+//   elementLike.addEventListener("click", function () {
+//     elementLike.classList.toggle(elementLikeActive);
+//   });
 
-  //Большая картинка при нажатие на неё
-  elementImage.addEventListener("click", function () {
-    popupTitleImage.textContent = card.name;
-    popupPhotoBig.src = card.link;
-    popupPhotoBig.alt = card.alt;
-    //добавляем open class
-    openPopup(popupBigOpenImage);
-  });
+//   //Большая картинка при нажатие на неё
+//   elementImage.addEventListener("click", function () {
+//     popupTitleImage.textContent = card.name;
+//     popupPhotoBig.src = card.link;
+//     popupPhotoBig.alt = card.alt;
+//     //добавляем open class
+//     openPopup(popupBigOpenImage);
+//   });
 
-  return newTodoCard;
-}
+//   return newTodoCard;
+// }
 
 //Делаем функцию что б добавлялись карточки, как работает - пока понятно на 50%
-function renderCard(data, container) {
-  const cardAdd = createCard(data);
-  container.prepend(cardAdd);
-}
+// function renderCard(data, container) {
+//   const cardAdd = createCard(data);
+//   container.prepend(cardAdd);
+// }
 
 //берет создание карточек "cardCreate" и с помощью цикла вставляет на страницу
-function renderInitialCards() {
-  initialCards.forEach((item) => renderCard(item, elementsCard));
-  //Прошу, это нужно мне оставить, что б понимать логику функции =>
-  // initialCards.forEach(cardCreateNew);
-}
+// function renderInitialCards() {
+//   initialCards.forEach((item) => renderCard(item, elementsCard));
+//   //Прошу, это нужно мне оставить, что б понимать логику функции =>
+//   // initialCards.forEach(cardCreateNew);
+// }
 
 //вызываем функцию для добавление карточек из массива
-renderInitialCards();
+//renderInitialCards();
+
+// initialCards.forEach(function (item){
+//   const newCard = new Card(item.name, item.link);
+//   newCard._renderInitialCards();
+//  });
+
 
 //Добавление данных форму
 popupAdd.addEventListener("submit", function (event) {
