@@ -16,10 +16,12 @@
   };
 
   _getTemplate() {
-    //return this._newElementTemplate.cloneNode(true).children[0];
-   //  this._template =  document.querySelector(this._newElementIdTemplate).content;
-   return this._newElementTemplate.cloneNode(true);
-
+  //Достаем template и клонируем (config.newElementIdTemplate не будет работать)
+   return document
+   .querySelector(this._newElementIdTemplate)
+   .content
+   .querySelector('.element')
+   .cloneNode(true);
   }
 
   //Удаляем карточки
@@ -55,6 +57,7 @@
     this._bigCardListener();
   }
 
+//Создаем карточки
   _createCard() {
     this._newTodoCard = this._getTemplate();
     this._newTodoCard.querySelector(this._elementText).textContent = this._text;
