@@ -1,71 +1,85 @@
  class Card {
-  constructor(text, link) {
-    // this._config = config;
+ // static template = document.querySelector("#newElement").content;
+  constructor(text, link, config, handleOpenPopup, newElementTemplate) {
     this._text = text;
     this._link = link;
-  }
+    this._config = config;
+    this._elementText = config.elementText;
+    this._elementImageSelector = config.elementImage;
+    this._elementTrashSelector = config.elementTrash;
+    this._elementLikeSelector = config.elementLike;
+    this._elementLikeActive = config.elementLikeActive;
+    this._handleOpenPopup = handleOpenPopup;
+    this._newElementIdTemplate = config.newElementIdTemplate;
+    this._newElementTemplate = newElementTemplate;
+    //this._newTodoCard = newTodoCard;
+  };
 
   _getTemplate() {
-    return newElementTemplate.cloneNode(true);
+    //return this._newElementTemplate.cloneNode(true).children[0];
+   //  this._template =  document.querySelector(this._newElementIdTemplate).content;
+   return this._newElementTemplate.cloneNode(true);
+
+  }
+
+  //Удаляем карточки
+  _deleteCardListener() {
+    this._buttonTrash.addEventListener("click", () => {
+      //const test = this._newTodoCard.querySelector('element');
+    this._newTodoCard.remove();
+      //после удаление карточки нужно обязательно её обнулять!!!
+       console.log(this._newElementTemplate);
+      //this._newTodoCard = null;
+    });
+  }
+
+  //Лайкаем сердечки
+  _likeCardListener() {
+    this._elementLike.addEventListener("click", () => {
+      this._elementLike.classList.toggle(this._elementLikeActive);
+    });
+  }
+
+  //Большая картинка при нажатие на неё
+  _bigCardListener() {
+    //Здесь функция которую мы взяли передали из index.js (handleOpenPopup)
+    this._elementImage.addEventListener("click", () => {
+      this._handleOpenPopup(this._text, this._link);
+    });
+  }
+
+  //Запускаем слушатели
+  _addEventListener() {
+    this._deleteCardListener();
+    this._likeCardListener();
+    this._bigCardListener();
   }
 
   _createCard() {
-    const newTodoCard = this._getTemplate();
-    // console.log(newTodoCard);
-    //  _getTemplate();
-    // newTodoCard = this._getTemplate();
-    newTodoCard.querySelector(config.elementText).textContent = this._text;
+    this._newTodoCard = this._getTemplate();
+    this._newTodoCard.querySelector(this._elementText).textContent = this._text;
 
     //Также делаем здесь, указываем, что нужно закинуть в src и туда кидаем ссылку
-    const elementImage = newTodoCard.querySelector(config.elementImage);
+    this._elementImage = this._newTodoCard.querySelector(
+      this._elementImageSelector
+    );
     //Добавляем alt картинки из массива
-    const buttonTrash = newTodoCard.querySelector(config.elementTrash);
-    const elementLike = newTodoCard.querySelector(config.elementLike);
-    const elementLikeActive = config.elementLikeActive;
-    elementImage.src = this._link;
-    elementImage.alt = this._text;
+    this._buttonTrash = this._newTodoCard.querySelector(
+      this._elementTrashSelector
+    );
+    this._elementLike = this._newTodoCard.querySelector(
+      this._elementLikeSelector
+    );
+    //const elementLikeActive = this._elementLikeActive;
+    this._elementImage.src = this._link;
+    this._elementImage.alt = this._text;
     //return newTodoCard;
 
-    //Удаляем карточки
-    buttonTrash.addEventListener("click", function () {
-      newTodoCard.remove();
-    });
-    //Лайкаем сердечки
-    elementLike.addEventListener("click", function () {
-      elementLike.classList.toggle(elementLikeActive);
-    });
-
-    //Большая картинка при нажатие на неё
-    elementImage.addEventListener("click", function () {
-      //Не понимаю, почему здесь не срабатывает "this._link" и "this._text"
-      popupTitleImage.textContent = elementImage.alt;
-      popupPhotoBig.src = elementImage.src;
-      popupPhotoBig.alt = elementImage.alt;
-      //добавляем open class
-      openPopup(popupBigOpenImage);
-    });
-
-    return newTodoCard;
-  }
-
-  _renderCard(data, container) {
-    const cardAdd = this._createCard(data);
-    container.prepend(cardAdd);
-  }
-
-  _renderInitialCard() {
-    this._renderCard(initialCards, elementsCard);
+    //Вызываем слушателей
+    this._addEventListener();
+    return this._newTodoCard;
   }
 }
 
-function renderInitialCards() {
-  initialCards.forEach(function (item) {
-    const newCard = new Card(item.name, item.link);
-    newCard._renderInitialCard();
-  });
-}
 
-renderInitialCards();
-
-//Почему-то не работает export - import
-//export default Card;
+export default Card;
