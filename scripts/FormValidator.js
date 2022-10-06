@@ -31,8 +31,8 @@ class FormValidator {
   }
 
   _showInputError = (inputElement) => {
-    // console.log(form);
- 
+     console.log(inputElement);
+     this._elementError = this._form.querySelector(`.${inputElement.id}-error`);
 
     //console.log(inputElement);
     this._textError = inputElement.validationMessage;
@@ -46,6 +46,7 @@ class FormValidator {
 
   _hideInputError = (inputElement) => {
     //console.log(form);
+    this._elementError = document.querySelector(`.${inputElement.id}-error`);
     this._elementError.classList.remove(this._popupElementError);
     inputElement.classList.remove(this._popupInputError);
     this._elementError.textContent = "";
@@ -70,7 +71,7 @@ class FormValidator {
 
     this._formInputs.forEach((inputElement) => {
       //в константу закидываем все классы "validationConfig.popupElementError" идущие после наших элементов(инпутов) в массиве
-     this._elementError = form.querySelector(`.${inputElement.id}-error`);
+    // this._elementError = form.querySelector(`.${inputElement.id}-error`);
 
       //вешаем слушатель на инпуты (элементы массива /инпуты/ "this._formInputs")
       inputElement.addEventListener("input", (evt) => {
