@@ -1,5 +1,5 @@
-import Card from './Card.js'; 
-import FormValidator from './FormValidator.js'; 
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
 
 //ПЕРЕМЕННЫЕ
 const validationConfig = {
@@ -70,6 +70,7 @@ const buttonAddButton = document.querySelector(config.buttonAddButton);
 
 //Форма добавления ищем по айди и скидываем в константу
 const popupAdd = document.querySelector(config.popupAdd);
+const formAdd = document.querySelector(config.formAdd);
 const popupEditCloseButton = popupAdd.querySelector(config.popupClose);
 const textValuePopupTitle = document.querySelector(config.textValuePopupTitle);
 const textValuePopupSubtitle = document.querySelector(
@@ -86,11 +87,12 @@ const buttonPopupBigImageClose = document.querySelector(
 );
 const popupPhoto = document.querySelector(config.popupBigOpenImage);
 const popupPhotoBig = popupPhoto.querySelector(config.popupPhotoBig);
-const newElementTemplate = document.querySelector(config.newElementIdTemplate).content;
+const newElementTemplate = document.querySelector(
+  config.newElementIdTemplate
+).content;
 //класс где находится title большой картинки (там пока пусто)
 const popupTitleImage = document.querySelector(config.popupTitleImage);
 //массив из всех попапов
-
 
 //  *****  ФУНКЦИИ  *****
 
@@ -103,94 +105,38 @@ function closeByEsc(evt) {
   }
 }
 
-// function createCard(card) {
-//   const newTodoCard = newElementTemplate.cloneNode(true);
-//   //теперь находим класс Тайтла в контстанте newTodoCard, с помощью textContent кладем
-//   // туда нашу константу с title
-//   newTodoCard.querySelector(config.elementText).textContent = card.name;
-//   //Также делаем здесь, указываем, что нужно закинуть в src и туда кидаем ссылку
-//   const elementImage = newTodoCard.querySelector(config.elementImage);
-//   //Добавляем alt картинки из массива
-//   const buttonTrash = newTodoCard.querySelector(config.elementTrash);
-//   const elementLike = newTodoCard.querySelector(config.elementLike);
-//   const elementLikeActive = config.elementLikeActive;
-//   elementImage.src = card.link;
-//   elementImage.alt = card.name;
-
-//   //Удаляем карточки
-//   buttonTrash.addEventListener("click", function () {
-//     newTodoCard.remove();
-//   });
-//   //Лайкаем сердечки
-//   elementLike.addEventListener("click", function () {
-//     elementLike.classList.toggle(elementLikeActive);
-//   });
-
-//   //Большая картинка при нажатие на неё
-//   elementImage.addEventListener("click", function () {
-//     popupTitleImage.textContent = card.name;
-//     popupPhotoBig.src = card.link;
-//     popupPhotoBig.alt = card.alt;
-//     //добавляем open class
-//     openPopup(popupBigOpenImage);
-//   });
-
-//   return newTodoCard;
-// }
-
-//Делаем функцию что б добавлялись карточки, как работает - пока понятно на 50%
-// function renderCard(data, container) {
-//   const cardAdd = createCard(data);
-//   container.prepend(cardAdd);
-// }
-
-//берет создание карточек "cardCreate" и с помощью цикла вставляет на страницу
-// function renderInitialCards() {
-//   initialCards.forEach((item) => renderCard(item, elementsCard));
-//   //Прошу, это нужно мне оставить, что б понимать логику функции =>
-//   // initialCards.forEach(cardCreateNew);
-// }
-
-//вызываем функцию для добавление карточек из массива
-//renderInitialCards();
-
-// initialCards.forEach(function (item){
-//   const newCard = new Card(item.name, item.link);
-//   newCard._renderInitialCards();
-//  });
-
-
-
 //Здесь делаем функцию для отправкию ее в класс Card
 function handleOpenPopup(name, link) {
-  popupPhotoBig.src = link; 
-  popupPhotoBig.alt = name; 
-  popupTitleImage.textContent = name; 
-  openPopup(popupBigOpenImage); 
-}   
-
-
-//Делаем функцию что б добавлялись карточки, как работает - пока понятно на 50%
-function renderCard(data, container) {
-  const newCard = new Card(data.name, data.link, config, handleOpenPopup, newElementTemplate);
-  const cardAdd = newCard._createCard(data);
-  container.prepend(cardAdd);
+  popupPhotoBig.src = link;
+  popupPhotoBig.alt = name;
+  popupTitleImage.textContent = name;
+  openPopup(popupBigOpenImage);
 }
 
-
+//Делаем функцию что б добавлялись карточки, как работает - пока понятно на 50%
+function createCard(data) {
+  const newCard = new Card(
+    data.name,
+    data.link,
+    config,
+    handleOpenPopup,
+    newElementTemplate
+  );
+ return newCard._createCard(data);
+  //container.prepend(cardAdd);
+}
 
 //берет создание карточек "cardCreate" и с помощью цикла вставляет на страницу
 function renderInitialCards() {
   initialCards.forEach((item) => {
-    renderCard(item, elementsCard);
+   // createCard(item);
+    elementsCard.prepend(createCard(item));
   });
 }
-
 renderInitialCards();
 
-
 //Добавление данных форму
-popupAdd.addEventListener("submit", function (event) {
+formAdd.addEventListener("submit", function (event) {
   //что б не перезагружалась страница
   event.preventDefault();
   const data = {
@@ -200,14 +146,18 @@ popupAdd.addEventListener("submit", function (event) {
   };
 
   function renderInitialCardOne() {
-      const newCard = new Card(data.name, data.link, config, handleOpenPopup, newElementTemplate);
-     renderCard(data, elementsCard);
+    const newCard = new Card(
+      data.name,
+      data.link,
+      config,
+      handleOpenPopup,
+      newElementTemplate
+    );
+    //createCard(data);
+    elementsCard.prepend(createCard(data));
   }
 
-
   renderInitialCardOne();
-
-  //renderCard(data, elementsCard);
   closePopup(popupAdd);
 });
 
@@ -216,25 +166,13 @@ function deletePopupCardInputsText() {
   document.querySelector(config.formAdd).reset();
 }
 
-// тебе нужно найти тег form -
-//  в котором лежат твои инпуты -
-//   textValuePopupTitle и textValuePopupSubtitle -
-//    и вызвать form.reset()
-
-// function handleOpenPopup(name, link) {
-//   popupPhotoBig.src = link; 
-//   popupPhotoBig.alt = name; 
-//   popupTitleImage.textContent = name; 
-//   openPopup(popupBigOpenImage); 
-// }   
-
 //Открыть/закрыть все попапы (кроме большой картинки) и нажатие на крестик
 function openPopup(modalWindow) {
   modalWindow.classList.add(config.popupOpened);
   //скорее всего нужно будет вынести функцию
-  popupSubmitButtons.forEach((element) => {
-    element.setAttribute("disabled", "disabled");
-  });
+  // popupSubmitButtons.forEach((element) => {
+  //   element.setAttribute("disabled", "disabled");
+  // });
   //стираем данные из инпутов
   deletePopupCardInputsText();
   document.addEventListener("keydown", closeByEsc);
@@ -302,54 +240,17 @@ popups.forEach((popupElement) => {
   popupCloseOutPopup(popupElement);
 });
 
-//Валидность
+//***** ВАЛИДАЦИЯ *****
+//Обязательно нужно пробрасывать (параметры/аргументы из Класcа/index)
 
-// const newValidation = new FormValidator(config, validationConfig);
+const validInput = () => {
+  const validationProfile = new FormValidator(config, validationConfig);
+  const validationCard = new FormValidator(config, validationConfig);
 
-// newValidation.enableValidation();
-
-
-// const inputText = prompt('Please enter your name.');
-
-
-// function greeting(name) {
-//   console.log('Hello ' + name);
-// }
-
-// function processUserInput(callback) {
-//   const name = inputText;
-//   callback(name);
-// }
-
-//  processUserInput(greeting);
-// //greeting('Вася');
-
-//newValidation.enableValidation();
-
-
-
-
-//ВАЛИДАЦИЯ
-//Обязательно нужно пробрасывать (параметры/аргументы из Класа/index)
-const newValidation = new FormValidator(config,  validationConfig);
-//newValidation._test();
-
-///Активация
-function enableValidation() {
-  const formLists = Array.from(
-    document.querySelectorAll(validationConfig.popupForm)
-  );
-
-  formLists.forEach((formElement) => {
-   
-    formElement.addEventListener("submit", (evt) => {});
-   // console.log(formElement);
-    newValidation._validateFormInputs(formElement);
-  });
+  const formLists = document.querySelectorAll(validationConfig.popupForm);
+  validationProfile._validateFormInputs(formLists[0]);
+  validationCard._validateFormInputs(formLists[1]);
 };
- 
 
-enableValidation();
-
-
+validInput();
 //КОНЕЦ ВАЛИДАЦИИ

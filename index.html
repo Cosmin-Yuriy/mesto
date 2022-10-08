@@ -71,11 +71,11 @@
         </button>
         <form id="form_add" action="#" class="popup__form" novalidate>
           <h2 class="popup__title">Новое место</h2>
-          <input id="input-image-title" name="name" class="popup__input" value=""
-            placeholder="Название" required type=text>
+          <input id="input-image-title" name="name" class="popup__input" value="" required minlength="2" placeholder="Название" required
+            type=text>
           <span class="popup__element-error input-image-title-error"></span>
-          <input id="input-image-url" name="subtitle" class="popup__input" value=""
-            placeholder="Ссылка на картинку" required type=url>
+          <input id="input-image-url" name="subtitle" class="popup__input" value="" placeholder="Ссылка на картинку"
+            required type=url>
           <span class="popup__element-error input-image-url-error"></span>
           <button class="popup__submit-button test" type="submit">
             Создать
@@ -109,10 +109,10 @@
       </div>
     </li>
   </template>
-  <script src="./scripts/cards.js"  defer></script>
-  <script type="module"  src="./scripts/index.js"  defer></script>
+  <script src="./scripts/cards.js" defer></script>
+  <script type="module" src="./scripts/index.js" defer></script>
   <!-- <script src="./scripts/Card.js"  defer></script>  -->
-  <script  src="./scripts/validate.js" defer></script>
+  <script src="./scripts/validate.js" defer></script>
   <!-- <script  src="./scripts/FormValidator.js" defer></script> -->
 </body>
 

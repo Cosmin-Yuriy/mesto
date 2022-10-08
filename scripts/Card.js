@@ -27,11 +27,9 @@
   //Удаляем карточки
   _deleteCardListener() {
     this._buttonTrash.addEventListener("click", () => {
-      //const test = this._newTodoCard.querySelector('element');
     this._newTodoCard.remove();
       //после удаление карточки нужно обязательно её обнулять!!!
-       console.log(this._newElementTemplate);
-      //this._newTodoCard = null;
+     //  console.log(this._newElementTemplate);
     });
   }
 
@@ -73,16 +71,13 @@
     this._elementLike = this._newTodoCard.querySelector(
       this._elementLikeSelector
     );
-    //const elementLikeActive = this._elementLikeActive;
     this._elementImage.src = this._link;
     this._elementImage.alt = this._text;
-    //return newTodoCard;
 
     //Вызываем слушателей
     this._addEventListener();
     return this._newTodoCard;
   }
 }
-
 
 export default Card;
