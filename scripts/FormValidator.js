@@ -1,6 +1,9 @@
 //ФУНКЦИИ ВАЛИДНОСТИ
 class FormValidator {
   //Обязательно нужно пробрасывать (параметры/аргументы из Класа/index)
+
+  //  !!! CONFIG - ИСПОЛЬЗУЮТСЯ :) => ОН  У  МЕНЯ ТАМ ХРАНИТ СЕЛЕКТОРЫ И ID
+  //В INDEX.JS ВВЕРХУ - ЕСЛИ Я ИХ УБЕРУ ВСЁ РУХНЕТ !!!
   constructor(config, validationConfig, form) {
     this._config = config;
     this._popupForm = validationConfig.popupForm;
@@ -50,13 +53,16 @@ class FormValidator {
       this._hideInputError(input);
     }
   };
+  
 
   //ОБРАБОТЧИКИ ВАЛИДНОСТИ
-  _validateFormInputs = (form) => {
+  _validateFormInputs = () => {
     //создаем массив из инпутов
-    this._formInputs = Array.from(form.querySelectorAll(this._popupInput));
+    this._formInputs = Array.from(
+      this._form.querySelectorAll(this._popupInput)
+    );
     //определяем кнопку "сохранить/отправить" в профиле
-    this._popupSubmitButton = form.querySelector(
+    this._popupSubmitButton = this._form.querySelector(
       this._buttonFormEditPofileTable
     );
     this._validateButton();
@@ -69,6 +75,10 @@ class FormValidator {
       });
     });
   };
+
+  enableValidation() {
+    this._validateFormInputs(); 
+  }
 }
 
 export default FormValidator;

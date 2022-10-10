@@ -1,3 +1,7 @@
+// "Юрий, задача ревью указать на ошибки в коде или логике работы приложения. " =>
+// Тем не менее эта проектная работа довольно сложная, вы мне очень сильно помогли в освоении!!!
+// СПАСИБО ВАМ!!!
+
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 
@@ -97,9 +101,8 @@ const popupTitleImage = document.querySelector(config.popupTitleImage);
 //  *****  ФУНКЦИИ  *****
 
 //ЗАКРЫТИЕ ПОПАПА С ПОМОЩЬЮ ESC
-const ESC_CODE = "27";
 function closeByEsc(evt) {
-  if (evt.key === ESC_CODE) {
+  if (evt.key === "Escape") {
     const openedPopup = document.querySelector(".popup_opened");
     closePopup(openedPopup);
   }
@@ -113,8 +116,17 @@ function handleOpenPopup(name, link) {
   openPopup(popupBigOpenImage);
 }
 
+//Закрытие кнопки для добавления
+function disabledButton(){
+popupSubmitButtons.forEach((element) => {
+  element.setAttribute("disabled", "disabled");
+});
+};
+//Подключаем Class 
+//Добавление карточек
+
 //Делаем функцию что б добавлялись карточки, как работает - пока понятно на 50%
-function createCard(data) {
+function addCard(data) {
   const newCard = new Card(
     data.name,
     data.link,
@@ -122,7 +134,7 @@ function createCard(data) {
     handleOpenPopup,
     newElementTemplate
   );
- return newCard._createCard(data);
+ return newCard.createCard();
   //container.prepend(cardAdd);
 }
 
@@ -130,10 +142,15 @@ function createCard(data) {
 function renderInitialCards() {
   initialCards.forEach((item) => {
    // createCard(item);
-    elementsCard.prepend(createCard(item));
+    elementsCard.prepend(addCard(item));
   });
 }
 renderInitialCards();
+
+//стираем данные из инпутов
+function deletePopupCardInputsText() {
+  document.querySelector(config.formAdd).reset();
+}
 
 //Добавление данных форму
 formAdd.addEventListener("submit", function (event) {
@@ -146,25 +163,17 @@ formAdd.addEventListener("submit", function (event) {
   };
 
   function renderInitialCardOne() {
-    const newCard = new Card(
-      data.name,
-      data.link,
-      config,
-      handleOpenPopup,
-      newElementTemplate
-    );
-    //createCard(data);
-    elementsCard.prepend(createCard(data));
+    disabledButton();
+    addCard(data);
+    elementsCard.prepend(addCard(data));
   }
-
+  deletePopupCardInputsText();
   renderInitialCardOne();
   closePopup(popupAdd);
+  
 });
 
-//стираем данный из инпутов
-function deletePopupCardInputsText() {
-  document.querySelector(config.formAdd).reset();
-}
+//Закончили добавлять карты
 
 //Открыть/закрыть все попапы (кроме большой картинки) и нажатие на крестик
 function openPopup(modalWindow) {
@@ -173,14 +182,12 @@ function openPopup(modalWindow) {
   // popupSubmitButtons.forEach((element) => {
   //   element.setAttribute("disabled", "disabled");
   // });
-  //стираем данные из инпутов
-  deletePopupCardInputsText();
   document.addEventListener("keydown", closeByEsc);
 }
 
 function closePopup(modalWindow) {
   modalWindow.classList.remove(config.popupOpened);
-  document.addEventListener("keydown", closeByEsc);
+  document.removeEventListener("keydown", closeByEsc);
 }
 
 //Открыть/закрыть попап большой картинки
@@ -240,16 +247,17 @@ popups.forEach((popupElement) => {
   popupCloseOutPopup(popupElement);
 });
 
+
 //***** ВАЛИДАЦИЯ *****
 //Обязательно нужно пробрасывать (параметры/аргументы из Класcа/index)
-
+//НАДЕЮСЬ ЗДЕСЬ ПРАВИЛЬНО ПОНЯЛ ))
 const validInput = () => {
-  const validationProfile = new FormValidator(config, validationConfig);
-  const validationCard = new FormValidator(config, validationConfig);
+  const validationProfile = new FormValidator(config, validationConfig, formAdd);
+  const validationCard = new FormValidator(config, validationConfig, popupEditProfile);
 
-  const formLists = document.querySelectorAll(validationConfig.popupForm);
-  validationProfile._validateFormInputs(formLists[0]);
-  validationCard._validateFormInputs(formLists[1]);
+  validationProfile.enableValidation();
+  validationCard.enableValidation();
+ // validationCard.enableValidation();
 };
 
 validInput();

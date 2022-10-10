@@ -1,5 +1,5 @@
- class Card {
- // static template = document.querySelector("#newElement").content;
+class Card {
+  // static template = document.querySelector("#newElement").content;
   constructor(text, link, config, handleOpenPopup, newElementTemplate) {
     this._text = text;
     this._link = link;
@@ -11,52 +11,68 @@
     this._elementLikeActive = config.elementLikeActive;
     this._handleOpenPopup = handleOpenPopup;
     this._newElementIdTemplate = config.newElementIdTemplate;
-    this._newElementTemplate = newElementTemplate;
+    // this._newElementTemplate = newElementTemplate;
     //this._newTodoCard = newTodoCard;
-  };
+  }
 
   _getTemplate() {
-  //Достаем template и клонируем (config.newElementIdTemplate не будет работать)
-   return document
-   .querySelector(this._newElementIdTemplate)
-   .content
-   .querySelector('.element')
-   .cloneNode(true);
+    //Достаем template и клонируем (config.newElementIdTemplate не будет работать)
+    return document
+      .querySelector(this._newElementIdTemplate)
+      .content.querySelector(".element")
+      .cloneNode(true);
   }
 
-  //Удаляем карточки
-  _deleteCardListener() {
-    this._buttonTrash.addEventListener("click", () => {
+  // //Удаляем карточки
+  // _deleteCardListener() {
+  //   this._buttonTrash.addEventListener("click", () => {
+  //     this._newTodoCard.remove();
+  //     //после удаление карточки нужно обязательно её обнулять!!!
+  //     this._newTodoCard = null;
+  //   });
+  // }
+
+  // //Лайкаем сердечки
+  // _likeCardListener() {
+  //   this._elementLike.addEventListener("click", () => {
+  //     this._elementLike.classList.toggle(this._elementLikeActive);
+  //   });
+  // }
+
+  // //Большая картинка при нажатие на неё
+  // _bigCardListener() {
+  //   //Здесь функция которую мы взяли передали из index.js (handleOpenPopup)
+  //   this._elementImage.addEventListener("click", () => {
+  //     this._handleOpenPopup(this._text, this._link);
+  //   });
+  // }
+
+  //метод удаление карточки
+  _handleDeleteCard() {
     this._newTodoCard.remove();
-      //после удаление карточки нужно обязательно её обнулять!!!
-     //  console.log(this._newElementTemplate);
-    });
+    this._newTodoCard = null;
   }
 
-  //Лайкаем сердечки
-  _likeCardListener() {
+  //Добавляем слушатели
+  _addEventListener() {
+    //Удаляем карточки
+    this._buttonTrash.addEventListener("click", () => {
+      this._handleDeleteCard();
+    });
+
+    //Лайкаем сердечки
     this._elementLike.addEventListener("click", () => {
       this._elementLike.classList.toggle(this._elementLikeActive);
     });
-  }
 
-  //Большая картинка при нажатие на неё
-  _bigCardListener() {
     //Здесь функция которую мы взяли передали из index.js (handleOpenPopup)
     this._elementImage.addEventListener("click", () => {
       this._handleOpenPopup(this._text, this._link);
     });
   }
 
-  //Запускаем слушатели
-  _addEventListener() {
-    this._deleteCardListener();
-    this._likeCardListener();
-    this._bigCardListener();
-  }
-
-//Создаем карточки
-  _createCard() {
+  //Создаем карточки
+  createCard() {
     this._newTodoCard = this._getTemplate();
     this._newTodoCard.querySelector(this._elementText).textContent = this._text;
 
