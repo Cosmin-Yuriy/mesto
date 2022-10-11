@@ -1,7 +1,4 @@
-// "Юрий, задача ревью указать на ошибки в коде или логике работы приложения. " =>
-// Тем не менее эта проектная работа довольно сложная, вы мне очень сильно помогли в освоении!!!
-// СПАСИБО ВАМ!!!
-
+import initialCards from "./cards.js";
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 
@@ -117,15 +114,15 @@ function handleOpenPopup(name, link) {
 }
 
 //Закрытие кнопки для добавления
-function disabledButton(){
-popupSubmitButtons.forEach((element) => {
-  element.setAttribute("disabled", "disabled");
-});
-};
+// function disabledButton(){
+// popupSubmitButtons.forEach((element) => {
+//   element.setAttribute("disabled", "disabled");
+// });
+// }; 
 //Подключаем Class 
 //Добавление карточек
 
-//Делаем функцию что б добавлялись карточки, как работает - пока понятно на 50%
+//Делаем функцию что б добавлялись карточки
 function addCard(data) {
   const newCard = new Card(
     data.name,
@@ -147,28 +144,21 @@ function renderInitialCards() {
 }
 renderInitialCards();
 
-//стираем данные из инпутов
-function deletePopupCardInputsText() {
-  document.querySelector(config.formAdd).reset();
-}
-
 //Добавление данных форму
 formAdd.addEventListener("submit", function (event) {
-  //что б не перезагружалась страница
   event.preventDefault();
+  const validationCard = new FormValidator(validationConfig, formAdd);
+  //что б не перезагружалась страница
+
   const data = {
     name: textValuePopupTitle.value,
     link: textValuePopupSubtitle.value,
     alt: textValuePopupTitle.value,
   };
-
-  function renderInitialCardOne() {
-    disabledButton();
-    addCard(data);
-    elementsCard.prepend(addCard(data));
-  }
-  deletePopupCardInputsText();
-  renderInitialCardOne();
+    
+  formAdd.reset()
+  validationCard.enableValidation();
+  elementsCard.prepend(addCard(data));
   closePopup(popupAdd);
   
 });
@@ -178,10 +168,6 @@ formAdd.addEventListener("submit", function (event) {
 //Открыть/закрыть все попапы (кроме большой картинки) и нажатие на крестик
 function openPopup(modalWindow) {
   modalWindow.classList.add(config.popupOpened);
-  //скорее всего нужно будет вынести функцию
-  // popupSubmitButtons.forEach((element) => {
-  //   element.setAttribute("disabled", "disabled");
-  // });
   document.addEventListener("keydown", closeByEsc);
 }
 
@@ -250,14 +236,13 @@ popups.forEach((popupElement) => {
 
 //***** ВАЛИДАЦИЯ *****
 //Обязательно нужно пробрасывать (параметры/аргументы из Класcа/index)
-//НАДЕЮСЬ ЗДЕСЬ ПРАВИЛЬНО ПОНЯЛ ))
 const validInput = () => {
-  const validationProfile = new FormValidator(config, validationConfig, formAdd);
-  const validationCard = new FormValidator(config, validationConfig, popupEditProfile);
+  const validationCard = new FormValidator(validationConfig, formAdd);
+  const validationProfile = new FormValidator(validationConfig, popupEditProfile);
 
+  
   validationProfile.enableValidation();
   validationCard.enableValidation();
- // validationCard.enableValidation();
 };
 
 validInput();

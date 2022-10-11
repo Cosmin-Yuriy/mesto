@@ -1,13 +1,9 @@
 //ФУНКЦИИ ВАЛИДНОСТИ
 class FormValidator {
   //Обязательно нужно пробрасывать (параметры/аргументы из Класа/index)
-
-  //  !!! CONFIG - ИСПОЛЬЗУЮТСЯ :) => ОН  У  МЕНЯ ТАМ ХРАНИТ СЕЛЕКТОРЫ И ID
-  //В INDEX.JS ВВЕРХУ - ЕСЛИ Я ИХ УБЕРУ ВСЁ РУХНЕТ !!!
-  constructor(config, validationConfig, form) {
-    this._config = config;
+//ВСЁ, ПОНЯЛ :)) - СПАСИБО!
+  constructor(validationConfig, form) {
     this._popupForm = validationConfig.popupForm;
-    this._title = config.title;
     this._validationConfig = validationConfig;
     this._popupElementError = validationConfig.popupElementError;
     this._popupInputError = validationConfig.popupInputError;
@@ -17,7 +13,7 @@ class FormValidator {
     this._form = form;
   }
 
-  _validateButton = () => {
+  validateButton = () => {
     //пробегаемся по инпуту формы "formInputs" берем в них { validity } и проверяем на  validity.valid тру или фолс
     this._isFormValid = this._formInputs.every(
       ({ validity }) => validity.valid
@@ -34,14 +30,13 @@ class FormValidator {
   _showInputError = (inputElement) => {
     this._elementError = document.querySelector(`.${inputElement.id}-error`);
     this._textError = inputElement.validationMessage;
-    // this._elementError.classList.add(this._popupElementError);
     inputElement.classList.add(this._popupInputError);
     this._elementError.textContent = this._textError;
   };
 
   _hideInputError = (inputElement) => {
     this._elementError = document.querySelector(`.${inputElement.id}-error`);
-    // this._elementError.classList.remove(this._popupElementError);
+
     inputElement.classList.remove(this._popupInputError);
     this._elementError.textContent = "";
   };
@@ -54,7 +49,6 @@ class FormValidator {
     }
   };
   
-
   //ОБРАБОТЧИКИ ВАЛИДНОСТИ
   _validateFormInputs = () => {
     //создаем массив из инпутов
@@ -65,13 +59,14 @@ class FormValidator {
     this._popupSubmitButton = this._form.querySelector(
       this._buttonFormEditPofileTable
     );
-    this._validateButton();
+    this.validateButton();
+  
     this._formInputs.forEach((inputElement) => {
       //вешаем слушатель на инпуты (элементы массива /инпуты/ "this._formInputs")
       inputElement.addEventListener("input", (evt) => {
         //  evt.preventDefault();
         this._checkInputValidity(inputElement);
-        this._validateButton();
+        this.validateButton();
       });
     });
   };
