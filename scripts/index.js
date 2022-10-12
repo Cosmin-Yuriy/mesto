@@ -147,7 +147,7 @@ renderInitialCards();
 //Добавление данных форму
 formAdd.addEventListener("submit", function (event) {
   event.preventDefault();
-  const validationCard = new FormValidator(validationConfig, formAdd);
+ 
   //что б не перезагружалась страница
 
   const data = {
@@ -157,7 +157,7 @@ formAdd.addEventListener("submit", function (event) {
   };
     
   formAdd.reset()
-  validationCard.enableValidation();
+  validInput();
   elementsCard.prepend(addCard(data));
   closePopup(popupAdd);
   

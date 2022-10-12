@@ -12,6 +12,7 @@ class Card {
     this._handleOpenPopup = handleOpenPopup;
     this._newElementIdTemplate = config.newElementIdTemplate;
   }
+  
 
   _getTemplate() {
     //Достаем template и клонируем (config.newElementIdTemplate не будет работать)
