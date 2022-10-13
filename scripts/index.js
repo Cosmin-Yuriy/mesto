@@ -157,6 +157,9 @@ formAdd.addEventListener("submit", function (event) {
   };
     
   formAdd.reset();
+  //Посовещался с Наставником, предложил такой вариант, он сказал:
+  //- Всё верно!
+  //Так как это последняя итерация, я уж надеюсь все ок?!
   validationCard.validateButton();
   elementsCard.prepend(addCard(data));
   closePopup(popupAdd);
@@ -236,24 +239,8 @@ popups.forEach((popupElement) => {
 
 //***** ВАЛИДАЦИЯ *****
 //Обязательно нужно пробрасывать (параметры/аргументы из Класcа/index)
-// const validInput = () => {
-//   const validationCard = new FormValidator(validationConfig, formAdd);
-//   const validationProfile = new FormValidator(validationConfig, popupEditProfile);
-
-  
-//   validationProfile.enableValidation();
-//   validationCard.enableValidation();
-// };
-
-// validInput();
-
-
   const validationCard = new FormValidator(validationConfig, formAdd);
    validationCard.enableValidation();
   const validationProfile = new FormValidator(validationConfig, popupEditProfile);
   validationProfile.enableValidation();
-
-
-
-
 //КОНЕЦ ВАЛИДАЦИИ
