@@ -156,8 +156,8 @@ formAdd.addEventListener("submit", function (event) {
     alt: textValuePopupTitle.value,
   };
     
-  formAdd.reset()
-  validInput();
+  formAdd.reset();
+  validationCard.validateButton();
   elementsCard.prepend(addCard(data));
   closePopup(popupAdd);
   
@@ -236,14 +236,24 @@ popups.forEach((popupElement) => {
 
 //***** ВАЛИДАЦИЯ *****
 //Обязательно нужно пробрасывать (параметры/аргументы из Класcа/index)
-const validInput = () => {
-  const validationCard = new FormValidator(validationConfig, formAdd);
-  const validationProfile = new FormValidator(validationConfig, popupEditProfile);
+// const validInput = () => {
+//   const validationCard = new FormValidator(validationConfig, formAdd);
+//   const validationProfile = new FormValidator(validationConfig, popupEditProfile);
 
   
-  validationProfile.enableValidation();
-  validationCard.enableValidation();
-};
+//   validationProfile.enableValidation();
+//   validationCard.enableValidation();
+// };
 
-validInput();
+// validInput();
+
+
+  const validationCard = new FormValidator(validationConfig, formAdd);
+   validationCard.enableValidation();
+  const validationProfile = new FormValidator(validationConfig, popupEditProfile);
+  validationProfile.enableValidation();
+
+
+
+
 //КОНЕЦ ВАЛИДАЦИИ
