@@ -1,3 +1,5 @@
+import Popup from "./Popup.js";
+import Section from "./Section.js";
 import initialCards from "./cards.js";
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
@@ -98,19 +100,21 @@ const popupTitleImage = document.querySelector(config.popupTitleImage);
 //  *****  ФУНКЦИИ  *****
 
 //ЗАКРЫТИЕ ПОПАПА С ПОМОЩЬЮ ESC
-function closeByEsc(evt) {
-  if (evt.key === "Escape") {
-    const openedPopup = document.querySelector(".popup_opened");
-    closePopup(openedPopup);
-  }
-}
+// function closeByEsc(evt) {
+//   if (evt.key === "Escape") {
+//     const openedPopup = document.querySelector(".popup_opened");
+//     closePopup(openedPopup);
+//   }
+// }
 
-//Здесь делаем функцию для отправкию ее в класс Card
+//Здесь делаем функцию для отправки ее в класс Card
+//Сам уже забыл, как устроена - записывать надо было
 function handleOpenPopup(name, link) {
   popupPhotoBig.src = link;
   popupPhotoBig.alt = name;
   popupTitleImage.textContent = name;
-  openPopup(popupBigOpenImage);
+  openPopup.open(popupBigOpenImage);
+ // openPopup(popupBigOpenImage);
 }
 
 //Закрытие кнопки для добавления
@@ -132,19 +136,37 @@ function addCard(data) {
     newElementTemplate
   );
  return newCard.createCard();
-  //container.prepend(cardAdd);
 }
 
 //берет создание карточек "cardCreate" и с помощью цикла вставляет на страницу
-function renderInitialCards() {
-  initialCards.forEach((item) => {
-   // createCard(item);
-    elementsCard.prepend(addCard(item));
-  });
-}
-renderInitialCards();
+// function renderInitialCards() {
+//   initialCards.forEach((item) => {
+//    // createCard(item);
+//     elementsCard.prepend(addCard(item));
+//   });
+// }
+// renderInitialCards();
 
-//Добавление данных форму
+
+//***ДОБАВЛЕНИЕ КАРТОЧЕК*** - КАК БЫ САМОМУ НЕ ЗАПУТАТЬСЯ :p
+
+//Делаем константу и из класса, прокидываем ему ({массив с карточками, функцию добавление карточек},
+//найденный селектор) 
+const cardRender = new Section({
+  initialCards,
+  renderer:(item) => {
+//хватаем метод "addItem" и вставляем в параметр функцию добавление карточек addCard(item)
+    cardRender.addItem(addCard(item));
+  }
+  // А здесь добавляем селектор
+  }, elementsCard);
+//вызываем метод renderer(c параметром массивом каточек)
+cardRender.renderer(initialCards);
+
+//КОНЕЦ Добавление карточек из массива :)
+
+
+// !!! Добавление данных в форму новых карточек
 formAdd.addEventListener("submit", function (event) {
   event.preventDefault();
  
@@ -157,75 +179,84 @@ formAdd.addEventListener("submit", function (event) {
   };
     
   formAdd.reset();
-  //Посовещался с Наставником, предложил такой вариант, он сказал:
-  //- Всё верно!
-  //Так как это последняя итерация, я уж надеюсь все ок?!
   validationCard.validateButton();
   elementsCard.prepend(addCard(data));
-  closePopup(popupAdd);
+  closePopup.close(popupAdd);
+  //closePopup(popupAdd);
   
 });
 
 //Закончили добавлять карты
 
 //Открыть/закрыть все попапы (кроме большой картинки) и нажатие на крестик
-function openPopup(modalWindow) {
-  modalWindow.classList.add(config.popupOpened);
-  document.addEventListener("keydown", closeByEsc);
-}
+// function openPopup(modalWindow) {
+//   modalWindow.classList.add(config.popupOpened);
+//   document.addEventListener("keydown", closeByEsc);
+// }
 
-function closePopup(modalWindow) {
-  modalWindow.classList.remove(config.popupOpened);
-  document.removeEventListener("keydown", closeByEsc);
-}
+// ОТКРЫВАЕМ ПОПАП
+const openPopup = new Popup(config.popupOpened);
+// ЗАКРЫВАЕМ ПОПАП
+const closePopup = new Popup(config.popupOpened);
+// function closePopup(modalWindow) {
+//   modalWindow.classList.remove(config.popupOpened);
+//   document.removeEventListener("keydown", closeByEsc);
+// }
 
 //Открыть/закрыть попап большой картинки
-buttonPopupBigImageClose.addEventListener("click", function () {
-  closePopup(popupBigOpenImage);
+buttonPopupBigImageClose.addEventListener("click", () => {
+  closePopup.close(popupBigOpenImage);
 });
+
 
 //  *****  ОБРАБОТЧИКИ *****
 
 // Редактирование Титла
 //Включаем кнопку, дословно добавляем к классу popup + класс popup-Open
 //ЭТО НЕБОЛЬШОЕ ОТКЛОНЕНИЕ КОТОРОЕ ВСЕМ ПОНРАВИЛОСЬ И МЫ ЕГО ВЕЗДЕ ОСТАВИЛИ!!!!
-buttonEdit.addEventListener("click", function () {
-  openPopup(popupEditProfile);
+buttonEdit.addEventListener("click", () => {
+  openPopup.open(popupEditProfile);
+  //openPopup(popupEditProfile);
   titleEdit.value = title.textContent;
   subTitleEdit.value = subTitle.textContent;
 });
 
 //Закрываем попап редактирования Титла без сохранения с помощью функции
-popupButtonCloseEditProfile.addEventListener("click", function () {
-  closePopup(popupEditProfile);
+popupButtonCloseEditProfile.addEventListener("click", () => {
+  //closePopup(popupEditProfile);
+  closePopup.close(popupEditProfile);
 });
 
 //Форма редактирования и отправления Профиля TITLE / SUBTITLE
 //Здесь при нажатие кнопки сохранить мышкой или enter закроем и сохраним
-popupFormEditPofileTable.addEventListener("submit", function (event) {
+popupFormEditPofileTable.addEventListener("submit", (event) => {
   event.preventDefault();
   title.textContent = titleEdit.value;
   subTitle.textContent = subTitleEdit.value;
-  closePopup(popupEditProfile);
+ // closePopup(popupEditProfile);
+  closePopup.close(popupEditProfile);
 });
 
 // 2 POPUP
 // Включаем кнопку, дословно добавляем к классу popup_add + класс popup-Open
-buttonAddButton.addEventListener("click", function () {
-  openPopup(popupAdd);
+buttonAddButton.addEventListener("click",() => {
+  openPopup.open(popupAdd);
+ // openPopup(popupAdd);
 });
 
 //Здесь при нажатие кнопки сохранить мышкой или enter закроем и сохраним
-popupEditCloseButton.addEventListener("click", function () {
-  closePopup(popupAdd);
+popupEditCloseButton.addEventListener("click", () => {
+  closePopup.close(popupAdd);
+  //closePopup(popupAdd);
 });
 
 //ЗАКРЫТИЯ ПОПАПА ДОПОЛНИТЕЛЬНЫЕ
 //закрытие попапа нажатие на паранжу
-function popupCloseOutPopup(popupElement) {
-  popupElement.addEventListener("click", function (evt) {
+const popupCloseOutPopup = (popupElement) => {
+  popupElement.addEventListener("click", (evt) => {
     if (evt.target === evt.currentTarget) {
-      closePopup(popupElement);
+      closePopup.close(popupElement);
+     // closePopup(popupElement);
     }
   });
 }
@@ -244,3 +275,4 @@ popups.forEach((popupElement) => {
   const validationProfile = new FormValidator(validationConfig, popupEditProfile);
   validationProfile.enableValidation();
 //КОНЕЦ ВАЛИДАЦИИ
+
