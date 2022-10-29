@@ -113,7 +113,8 @@ function handleOpenPopup(name, link) {
   popupPhotoBig.src = link;
   popupPhotoBig.alt = name;
   popupTitleImage.textContent = name;
-  openPopup.open(popupBigOpenImage);
+  openPopup(popupBigOpenImage);
+  // openPopup.open(popupBigOpenImage);
  // openPopup(popupBigOpenImage);
 }
 
@@ -181,7 +182,7 @@ formAdd.addEventListener("submit", function (event) {
   formAdd.reset();
   validationCard.validateButton();
   elementsCard.prepend(addCard(data));
-  closePopup.close(popupAdd);
+  closePopup(popupAdd);
   //closePopup(popupAdd);
   
 });
@@ -189,15 +190,29 @@ formAdd.addEventListener("submit", function (event) {
 //Закончили добавлять карты
 
 //Открыть/закрыть все попапы (кроме большой картинки) и нажатие на крестик
+
+
+function openPopup(modalWindow){
+  const openPop = new Popup(modalWindow);
+  openPop.open(modalWindow);
+}
+function closePopup(modalWindow){
+  const closePop = new Popup(modalWindow);
+  closePop.close(modalWindow);
+}
+
 // function openPopup(modalWindow) {
 //   modalWindow.classList.add(config.popupOpened);
 //   document.addEventListener("keydown", closeByEsc);
 // }
 
 // ОТКРЫВАЕМ ПОПАП
-const openPopup = new Popup(config.popupOpened);
+// popups.forEach(element => {
+  
+// });
+// const openPopup = new Popup(popups);
 // ЗАКРЫВАЕМ ПОПАП
-const closePopup = new Popup(config.popupOpened);
+//const closePopup = new Popup(popups[1]);
 // function closePopup(modalWindow) {
 //   modalWindow.classList.remove(config.popupOpened);
 //   document.removeEventListener("keydown", closeByEsc);
@@ -205,7 +220,8 @@ const closePopup = new Popup(config.popupOpened);
 
 //Открыть/закрыть попап большой картинки
 buttonPopupBigImageClose.addEventListener("click", () => {
-  closePopup.close(popupBigOpenImage);
+ // closePopup.close(popupBigOpenImage);
+ closePopup(popupBigOpenImage);
 });
 
 
@@ -215,7 +231,9 @@ buttonPopupBigImageClose.addEventListener("click", () => {
 //Включаем кнопку, дословно добавляем к классу popup + класс popup-Open
 //ЭТО НЕБОЛЬШОЕ ОТКЛОНЕНИЕ КОТОРОЕ ВСЕМ ПОНРАВИЛОСЬ И МЫ ЕГО ВЕЗДЕ ОСТАВИЛИ!!!!
 buttonEdit.addEventListener("click", () => {
-  openPopup.open(popupEditProfile);
+  openPopup(popupEditProfile);
+  // const openPopup = new Popup(popupEditProfile);
+  // openPopup.open(popupEditProfile);
   //openPopup(popupEditProfile);
   titleEdit.value = title.textContent;
   subTitleEdit.value = subTitle.textContent;
@@ -223,8 +241,9 @@ buttonEdit.addEventListener("click", () => {
 
 //Закрываем попап редактирования Титла без сохранения с помощью функции
 popupButtonCloseEditProfile.addEventListener("click", () => {
+  closePopup(popupEditProfile);
   //closePopup(popupEditProfile);
-  closePopup.close(popupEditProfile);
+ // closePopup.close(popupEditProfile);
 });
 
 //Форма редактирования и отправления Профиля TITLE / SUBTITLE
@@ -234,19 +253,19 @@ popupFormEditPofileTable.addEventListener("submit", (event) => {
   title.textContent = titleEdit.value;
   subTitle.textContent = subTitleEdit.value;
  // closePopup(popupEditProfile);
-  closePopup.close(popupEditProfile);
+
 });
 
 // 2 POPUP
 // Включаем кнопку, дословно добавляем к классу popup_add + класс popup-Open
 buttonAddButton.addEventListener("click",() => {
-  openPopup.open(popupAdd);
+  openPopup(popupAdd);
  // openPopup(popupAdd);
 });
 
 //Здесь при нажатие кнопки сохранить мышкой или enter закроем и сохраним
 popupEditCloseButton.addEventListener("click", () => {
-  closePopup.close(popupAdd);
+  closePopup(popupAdd);
   //closePopup(popupAdd);
 });
 
@@ -255,7 +274,7 @@ popupEditCloseButton.addEventListener("click", () => {
 const popupCloseOutPopup = (popupElement) => {
   popupElement.addEventListener("click", (evt) => {
     if (evt.target === evt.currentTarget) {
-      closePopup.close(popupElement);
+      closePopup(popupElement);
      // closePopup(popupElement);
     }
   });
