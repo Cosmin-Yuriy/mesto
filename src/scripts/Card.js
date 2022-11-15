@@ -1,6 +1,8 @@
 class Card {
-  // static template = document.querySelector("#newElement").content;
-  constructor(text, link, config, handleOpenPopup, newElementTemplate) {
+  
+  //убрал handleOpenPopup
+
+  constructor(text, link, config, handleCardClick, newElementTemplate) {
     this._text = text;
     this._link = link;
     this._config = config;
@@ -9,8 +11,9 @@ class Card {
     this._elementTrashSelector = config.elementTrash;
     this._elementLikeSelector = config.elementLike;
     this._elementLikeActive = config.elementLikeActive;
-    this._handleOpenPopup = handleOpenPopup;
+   // this._handleOpenPopup = handleOpenPopup;
     this._newElementIdTemplate = config.newElementIdTemplate;
+    this._handleCardClick = handleCardClick;
   }
   
 
@@ -35,6 +38,12 @@ class Card {
 
   //Добавляем слушатели
   _addEventListener() {
+    //по факту заменили handleOpenPopup - не понял зачем? Какая разница?
+    //Какое ТЗ - Такая и работа ХЗ
+    this._elementImage.addEventListener("click", () => {
+      this._handleCardClick(this._text, this._link);
+    })
+
     //Удаляем карточки
     this._buttonTrash.addEventListener("click", () => {
       this._handleDeleteCard();
@@ -46,9 +55,9 @@ class Card {
     });
 
     //Здесь функция которую мы взяли передали из index.js (handleOpenPopup)
-    this._elementImage.addEventListener("click", () => {
-      this._handleOpenPopup(this._text, this._link);
-    });
+    // this._elementImage.addEventListener("click", () => {
+    //   this._handleOpenPopup(this._text, this._link);
+    // });
   }
 
   //Создаем карточки

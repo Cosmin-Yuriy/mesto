@@ -1,3 +1,6 @@
+import UserInfo from "./UserInfo.js";
+import PopupWithForm from "./PopupWithForm.js";
+import PopupWithImage from "./PopupWithImage.js";
 import Popup from "./Popup.js";
 import Section from "./Section.js";
 import initialCards from "./cards.js";
@@ -54,7 +57,7 @@ const popupSubmitButtons = document.querySelectorAll(
   validationConfig.buttonFormEditPofileTable
 );
 //config
-const popups = document.querySelectorAll(config.popup);
+export const popups = document.querySelectorAll(config.popup);
 const title = document.querySelector(config.title);
 const subTitle = document.querySelector(config.subTitle);
 const popupEditProfile = document.querySelector(config.popupEditProfile);
@@ -89,12 +92,12 @@ const buttonPopupBigImageClose = document.querySelector(
   config.buttonPopupBigImageClose
 );
 const popupPhoto = document.querySelector(config.popupBigOpenImage);
-const popupPhotoBig = popupPhoto.querySelector(config.popupPhotoBig);
+export const popupPhotoBig = popupPhoto.querySelector(config.popupPhotoBig);
 const newElementTemplate = document.querySelector(
   config.newElementIdTemplate
 ).content;
 //класс где находится title большой картинки (там пока пусто)
-const popupTitleImage = document.querySelector(config.popupTitleImage);
+export const popupTitleImage = document.querySelector(config.popupTitleImage);
 //массив из всех попапов
 
 //  *****  ФУНКЦИИ  *****
@@ -109,15 +112,32 @@ const popupTitleImage = document.querySelector(config.popupTitleImage);
 
 //Здесь делаем функцию для отправки ее в класс Card
 //Сам уже забыл, как устроена - записывать надо было
-function handleOpenPopup(name, link) {
-  popupPhotoBig.src = link;
-  popupPhotoBig.alt = name;
-  popupTitleImage.textContent = name;
-  openPopup(popupBigOpenImage);
-  // openPopup.open(popupBigOpenImage);
- // openPopup(popupBigOpenImage);
-}
+// function handleOpenPopup(name, link) {
+//   popupPhotoBig.src = link;
+//   popupPhotoBig.alt = name;
+//   popupTitleImage.textContent = name;
+//   openPopup(popupBigOpenImage);
 
+// }
+// function openPopup(modalWindow){
+//   const openPop = new Popup(modalWindow);
+//   openPop.open(modalWindow);
+// }
+
+//ТЕСТИРУЕМ PopupWithForm
+const test = new PopupWithForm();
+console.log(test._getInputValues());
+console.log(popups);
+
+//ТЕСТИРУЕМ Userinfo
+const test2 = new UserInfo(title, subTitle);
+console.log(test2.getUserInfo());
+
+
+function handleCardClick(name, link) {
+  const image = new PopupWithImage(popupBigOpenImage)
+  image.open(name, link);
+}
 //Закрытие кнопки для добавления
 // function disabledButton(){
 // popupSubmitButtons.forEach((element) => {
@@ -133,7 +153,7 @@ function addCard(data) {
     data.name,
     data.link,
     config,
-    handleOpenPopup,
+    handleCardClick,
     newElementTemplate
   );
  return newCard.createCard();
@@ -201,6 +221,19 @@ function closePopup(modalWindow){
   closePop.close(modalWindow);
 }
 
+function eventListener(modalWindow){
+  const listeners = new Popup(modalWindow);
+  listeners.setEventListeners(modalWindow);
+ // console.log(modalWindow);
+}
+
+//слушатели закрытия
+// профиль
+eventListener(popupEditProfile); 
+// добавление картинки
+eventListener(popupAdd);
+// большая картинка 
+eventListener(popupBigOpenImage); 
 // function openPopup(modalWindow) {
 //   modalWindow.classList.add(config.popupOpened);
 //   document.addEventListener("keydown", closeByEsc);
@@ -219,10 +252,11 @@ function closePopup(modalWindow){
 // }
 
 //Открыть/закрыть попап большой картинки
-buttonPopupBigImageClose.addEventListener("click", () => {
- // closePopup.close(popupBigOpenImage);
- closePopup(popupBigOpenImage);
-});
+
+// buttonPopupBigImageClose.addEventListener("click", () => {
+//  // closePopup.close(popupBigOpenImage);
+//  closePopup(popupBigOpenImage);
+// });
 
 
 //  *****  ОБРАБОТЧИКИ *****
@@ -240,11 +274,13 @@ buttonEdit.addEventListener("click", () => {
 });
 
 //Закрываем попап редактирования Титла без сохранения с помощью функции
-popupButtonCloseEditProfile.addEventListener("click", () => {
-  closePopup(popupEditProfile);
-  //closePopup(popupEditProfile);
- // closePopup.close(popupEditProfile);
-});
+// popupButtonCloseEditProfile.addEventListener("click", () => {
+//   closePopup(popupEditProfile);
+//   //closePopup(popupEditProfile);
+//  // closePopup.close(popupEditProfile);
+// });
+
+
 
 //Форма редактирования и отправления Профиля TITLE / SUBTITLE
 //Здесь при нажатие кнопки сохранить мышкой или enter закроем и сохраним
@@ -252,8 +288,8 @@ popupFormEditPofileTable.addEventListener("submit", (event) => {
   event.preventDefault();
   title.textContent = titleEdit.value;
   subTitle.textContent = subTitleEdit.value;
- // closePopup(popupEditProfile);
-
+  closePopup(popupEditProfile);
+ //eventListener(popupEditProfile); 
 });
 
 // 2 POPUP
@@ -264,27 +300,28 @@ buttonAddButton.addEventListener("click",() => {
 });
 
 //Здесь при нажатие кнопки сохранить мышкой или enter закроем и сохраним
-popupEditCloseButton.addEventListener("click", () => {
-  closePopup(popupAdd);
-  //closePopup(popupAdd);
-});
+ //popupEditCloseButton.addEventListener("click", () => {
+//   closePopup(popupAdd);
+//   //closePopup(popupAdd);
+// });
 
+//eventListener(popupAdd); 
 //ЗАКРЫТИЯ ПОПАПА ДОПОЛНИТЕЛЬНЫЕ
 //закрытие попапа нажатие на паранжу
-const popupCloseOutPopup = (popupElement) => {
-  popupElement.addEventListener("click", (evt) => {
-    if (evt.target === evt.currentTarget) {
-      closePopup(popupElement);
-     // closePopup(popupElement);
-    }
-  });
-}
+// const popupCloseOutPopup = (popupElement) => {
+//   popupElement.addEventListener("click", (evt) => {
+//     if (evt.target === evt.currentTarget) {
+//       closePopup(popupElement);
+//      // closePopup(popupElement);
+//     }
+//   });
+// }
 
-//ЗАКРЫТИЕ ПОПАПА НАЖАТИЕМ НА ПАРАНЖУ
-popups.forEach((popupElement) => {
-  //закрытие попапа нажатие на паранжу
-  popupCloseOutPopup(popupElement);
-});
+// //ЗАКРЫТИЕ ПОПАПА НАЖАТИЕМ НА ПАРАНЖУ
+// popups.forEach((popupElement) => {
+//   //закрытие попапа нажатие на паранжу
+//   popupCloseOutPopup(popupElement);
+// });
 
 
 //***** ВАЛИДАЦИЯ *****
