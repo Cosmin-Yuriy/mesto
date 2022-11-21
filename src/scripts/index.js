@@ -1,3 +1,4 @@
+import  "../pages/index.css";
 import UserInfo from "./UserInfo.js";
 import PopupWithForm from "./PopupWithForm.js";
 import PopupWithImage from "./PopupWithImage.js";
@@ -6,7 +7,6 @@ import Section from "./Section.js";
 import initialCards from "./cards.js";
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
-
 //ПЕРЕМЕННЫЕ
 const validationConfig = {
   popup: ".popup",
@@ -137,6 +137,7 @@ console.log(test2.getUserInfo());
 function handleCardClick(name, link) {
   const image = new PopupWithImage(popupBigOpenImage)
   image.open(name, link);
+
 }
 //Закрытие кнопки для добавления
 // function disabledButton(){

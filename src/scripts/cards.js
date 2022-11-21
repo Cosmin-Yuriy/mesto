@@ -25,7 +25,7 @@ const initialCards = [
 
   {
     name: "В.В. Путин",
-    link: "./images/putin.png",
+    link: "images/putin.png",
   },
 
   {
