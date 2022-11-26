@@ -1,7 +1,6 @@
 //ФУНКЦИИ ВАЛИДНОСТИ
 class FormValidator {
   //Обязательно нужно пробрасывать (параметры/аргументы из Класа/index)
-//ВСЁ, ПОНЯЛ :)) - СПАСИБО!
   constructor(validationConfig, form) {
     this._popupForm = validationConfig.popupForm;
     this._validationConfig = validationConfig;
@@ -64,7 +63,6 @@ class FormValidator {
     this._formInputs.forEach((inputElement) => {
       //вешаем слушатель на инпуты (элементы массива /инпуты/ "this._formInputs")
       inputElement.addEventListener("input", (evt) => {
-        //  evt.preventDefault();
         this._checkInputValidity(inputElement);
         this.validateButton();
       });

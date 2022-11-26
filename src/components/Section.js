@@ -10,7 +10,6 @@
 class Section {
 
   constructor({items,renderer}, containerSelectr) {
-   // this._items = items;
     this._renderer = renderer;
     this._container = containerSelectr;
   }
@@ -20,7 +19,7 @@ class Section {
   // Отрисовка каждого отдельного элемента должна 
   // осуществляться функцией renderer
   // по факту хватанули из индекс.js функцию  и запихнули сюда
-  renderer(items) {
+  renderItems(items) {
     items.forEach(item => {
       this._renderer(item);
     });

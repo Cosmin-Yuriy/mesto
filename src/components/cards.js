@@ -2,32 +2,7 @@
 
 //Массив из задания титлы картинки и ссылки на них
 const initialCards = [
-  {
-    name: "Карачаевск",
-    link: "./images/kirill-pershin-1088404-unsplash.jpg",
-  },
-  {
-    name: "Домбай",
-    link: "./images/kirill-pershin-1556355-unsplash.jpg",
-  },
-  {
-    name: "Гора Эльбрус",
-    link: "./images/kirill-pershin-1404681-unsplash.jpg",
-  },
-  {
-    name: "Домбай",
-    link: "./images/kirill-pershin-1556355-unsplash.jpg",
-  },
-  {
-    name: "Гора Эльбрус",
-    link: "./images/kirill-pershin-1404681-unsplash.jpg",
-  },
-
-  {
-    name: "В.В. Путин",
-    link: "images/putin.png",
-  },
-
+ 
   {
     name: "Архыз",
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",

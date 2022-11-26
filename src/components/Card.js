@@ -1,17 +1,12 @@
 class Card {
-  
-  //убрал handleOpenPopup
-
-  constructor(text, link, config, handleCardClick, newElementTemplate) {
+    constructor(text, link, config, handleCardClick, newElementTemplate) {
     this._text = text;
     this._link = link;
-    this._config = config;
     this._elementText = config.elementText;
     this._elementImageSelector = config.elementImage;
     this._elementTrashSelector = config.elementTrash;
     this._elementLikeSelector = config.elementLike;
     this._elementLikeActive = config.elementLikeActive;
-   // this._handleOpenPopup = handleOpenPopup;
     this._newElementIdTemplate = config.newElementIdTemplate;
     this._handleCardClick = handleCardClick;
   }
@@ -27,8 +22,8 @@ class Card {
 
   //метод удаление карточки
   _handleDeleteCard() {
-    this._newTodoCard.remove();
-    this._newTodoCard = null;
+    this._card.remove();
+    this._card = null;
   }
   
   //метод лайк карточки
@@ -53,27 +48,22 @@ class Card {
     this._elementLike.addEventListener("click", () => {
       this._likePush()
     });
-
-    //Здесь функция которую мы взяли передали из index.js (handleOpenPopup)
-    // this._elementImage.addEventListener("click", () => {
-    //   this._handleOpenPopup(this._text, this._link);
-    // });
   }
 
   //Создаем карточки
   createCard() {
-    this._newTodoCard = this._getTemplate();
-    this._newTodoCard.querySelector(this._elementText).textContent = this._text;
+    this._card = this._getTemplate();
+    this._card.querySelector(this._elementText).textContent = this._text;
 
     //Также делаем здесь, указываем, что нужно закинуть в src и туда кидаем ссылку
-    this._elementImage = this._newTodoCard.querySelector(
+    this._elementImage = this._card.querySelector(
       this._elementImageSelector
     );
     //Добавляем alt картинки из массива
-    this._buttonTrash = this._newTodoCard.querySelector(
+    this._buttonTrash = this._card.querySelector(
       this._elementTrashSelector
     );
-    this._elementLike = this._newTodoCard.querySelector(
+    this._elementLike = this._card.querySelector(
       this._elementLikeSelector
     );
     this._elementImage.src = this._link;
@@ -81,7 +71,7 @@ class Card {
 
     //Вызываем слушателей
     this._addEventListener();
-    return this._newTodoCard;
+    return this._card;
   }
 }
 
