@@ -13,7 +13,6 @@ export default class UserInfo {
   // Этот метод пригодится когда данные пользователя 
   // нужно будет подставить в форму при открытии.
   getUserInfo(){
-    console.log("Класс UserInfo - метод getUserInfo работает");
     return {
       name: this._elementName.textContent,
       info: this._elementInfo.textContent,
@@ -24,7 +23,6 @@ export default class UserInfo {
   setUserInfo({name,info}){
     this._elementName.textContent = name;
     this._elementInfo.textContent = info;
-    console.log("Класс UserInfo - метод setUserInfo работает");
   }
   
 }

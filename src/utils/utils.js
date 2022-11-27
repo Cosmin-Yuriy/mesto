@@ -37,4 +37,6 @@ export const config = {
   elementTrash: ".element__trash",
   element: ".element",
   formAdd: "#form_add",
+  inputTitleProfile: ".popup__input[name='name']",
+  inputSubtitleProfile: ".popup__input[name='subtitle']",
 };

@@ -49,6 +49,8 @@ const newElementTemplate = document.querySelector(
   config.newElementIdTemplate
 ).content;
 const popupTitleImage = document.querySelector(config.popupTitleImage);
+const inputTitleProfile = document.querySelector(config.inputTitleProfile);
+const inputSubtitleProfile = document.querySelector(config.inputSubtitleProfile);
 
 //**************************** КЛАССЫ ****************************
 
@@ -103,6 +105,8 @@ const editPopupProfile = new PopupWithForm(popupEditProfile, (input) => {
 editPopupProfile.setEventListeners();
 
 buttonEdit.addEventListener("click", () => {
+  inputTitleProfile.value = userinfo.getUserInfo().name;
+  inputSubtitleProfile.value = userinfo.getUserInfo().info;
   editPopupProfile.open();
 });
 
