@@ -16,6 +16,7 @@ import { config } from "../utils/utils.js";
 const popupSubmitButtons = document.querySelectorAll(
   validationConfig.buttonFormEditPofileTable
 );
+//config
 const popups = document.querySelectorAll(config.popup);
 const title = document.querySelector(config.title);
 const subTitle = document.querySelector(config.subTitle);
@@ -94,15 +95,17 @@ const cardRender = new Section(
 );
 //вызываем метод renderitems(c параметром массивом каточек)
 cardRender.renderItems(initialCards);
+const userinfo = new UserInfo(title, subTitle);
 
-
+//console.log(userinfo.getUserInfo());
+//console.log(title.textContent, subTitle.textContent);
 //**************************** PopupWithForm  UserInfo Card ****************************
 const editPopupProfile = new PopupWithForm(popupEditProfile, (input) => {
-  const userinfo = new UserInfo(title, subTitle);
   userinfo.setUserInfo({ name: input[0].value, info: input[1].value });
 });
 
 editPopupProfile.setEventListeners();
+
 
 buttonEdit.addEventListener("click", () => {
   inputTitleProfile.value = userinfo.getUserInfo().name;
