@@ -4,37 +4,32 @@ export default class PopupWithForm extends Popup {
     super(popupElement);
     this._popupElement = popupElement;
     this._calbacklSubmitForm = calbacklSubmitForm;
-    this._popups = this._popupElement.querySelector(".popup__form");
-    this._input = this._popups.querySelectorAll(".popup__input");
+    this._form = this._popupElement.querySelector(".popup__form");
+    this._inputList = this._form.querySelectorAll(".popup__input");
   }
 
-  //собирает данные всех полей формы.
+  //собирает данные всех полей формы и укладывет их в объект (данные name и subtitle).
   _getInputValues() {
-    this._inputs = "";
-    this._input.forEach((input) => {
-      this._inputs = input.value;
-    });
-    console.log("Класс PopupWithForm - метод _getInputValues работает");
-
-    return this._input;
+    this._formValues = {};
+    this._inputList.forEach(input => this._formValues[input.name] = input.value);
+    return this._formValues;
   }
 
   //Перезаписывает родительский метод setEventListeners.
   setEventListeners() {
     //Перезаписывает родительский метод setEventListeners.
     super.setEventListeners();
-    this._popups.addEventListener("submit", (evt) => {
+    this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._calbacklSubmitForm(this._getInputValues());
       this.close();
-      console.log("Класс PopupWithForm - метод setEventListeners работает");
     });
   }
 
   //Перезаписывает родительский метод close, так
   //как при закрытии попапа форма должна ещё и сбрасываться
   close() {
-    this._popups.reset();
+    this._form.reset();
     super.close();
   }
 }

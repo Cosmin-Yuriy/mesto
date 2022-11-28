@@ -4,7 +4,7 @@ import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
-import initialCards from "../components/cards.js";
+import initialCards from "../utils/cards.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import { validationConfig } from "../utils/utils.js";
@@ -95,38 +95,38 @@ const cardRender = new Section(
 );
 //вызываем метод renderitems(c параметром массивом каточек)
 cardRender.renderItems(initialCards);
-const userinfo = new UserInfo(title, subTitle);
+const userInfo = new UserInfo(title, subTitle);
 
-//console.log(userinfo.getUserInfo());
-//console.log(title.textContent, subTitle.textContent);
 //**************************** PopupWithForm  UserInfo Card ****************************
-const editPopupProfile = new PopupWithForm(popupEditProfile, (input) => {
-  userinfo.setUserInfo({ name: input[0].value, info: input[1].value });
+
+//!!! У МЕНЯ УЖЕ ЕСТЬ КОНСТАНТА  "popupEditProfile" ПОЭТОМУ ДЕЛАЮ popupProfileEdit
+const popupProfileEdit = new PopupWithForm(popupEditProfile, (input) => {
+  userInfo.setUserInfo({ name: input.name, info: input.subtitle });
 });
 
-editPopupProfile.setEventListeners();
+popupProfileEdit.setEventListeners();
 
 
 buttonEdit.addEventListener("click", () => {
-  inputTitleProfile.value = userinfo.getUserInfo().name;
-  inputSubtitleProfile.value = userinfo.getUserInfo().info;
-  editPopupProfile.open();
+  inputTitleProfile.value = userInfo.getUserInfo().name;
+  inputSubtitleProfile.value = userInfo.getUserInfo().info;
+  popupProfileEdit.open();
 });
 
-const openPopup = new PopupWithForm(popupAdd, (input) => {
+const popupAddCard = new PopupWithForm(popupAdd, (input) => {
   const infoCard = createCard({
-    name: input[0].value,
-    link: input[1].value,
+     name: input.name,
+     link: input.subtitle,
   });
   cardRender.addItem(infoCard);
 });
-
-openPopup.setEventListeners();
+popupAddCard._getInputValues();
+popupAddCard.setEventListeners();
 
 // 2 POPUP
 // Включаем кнопку, дословно добавляем к классу popup_add + класс popup-Open
 buttonAddButton.addEventListener("click", () => {
-  openPopup.open();
+  popupAddCard.open();
 });
 
 //**************************** ВАЛИДАЦИЯ ****************************
