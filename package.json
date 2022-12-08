@@ -7,7 +7,7 @@
     "test": "echo \"ТЕСТИРУЕМ WEBPACK\" && exit 1",
     "build:dev": "webpack --mode development",
     "start": "webpack serve --open",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build:dev",
     "deploy": "gh-pages -d dist"
   },
   "repository": {
