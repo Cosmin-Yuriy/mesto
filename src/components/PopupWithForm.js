@@ -7,7 +7,7 @@ export default class PopupWithForm extends Popup {
     this._form = this._popupElement.querySelector(".popup__form");
     this._inputList = this._form.querySelectorAll(".popup__input");
   }
-
+  
   //собирает данные всех полей формы и укладывет их в объект (данные name и subtitle).
   _getInputValues() {
     this._formValues = {};

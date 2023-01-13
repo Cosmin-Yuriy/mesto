@@ -1,0 +1,16 @@
+.popup__content_size_small{
+  display: flex;
+  background-color: white;
+  color: black;
+  width: 430px;
+  height: 181px;
+  border-radius: 10px;
+  position: relative;
+}
+
+@media screen and (max-width: 600px) {
+  .popup__content_size_small {
+    width: 282px;
+    height: 181px;
+  }
+}

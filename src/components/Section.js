@@ -30,6 +30,11 @@ class Section {
   // здесь мы будем добавлять карточки в начало 
   // в аргумент будет вставляться Функция карточка с добавлением данных на сайт
   addItem(item){
+    this._container.append(item);
+  }
+
+  //для новых карт, что б вверху появлялось(пока только так)
+  addItemNewcard(item){
     this._container.prepend(item);
   }
 

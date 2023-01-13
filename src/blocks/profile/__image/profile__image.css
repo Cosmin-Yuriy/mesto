@@ -1,0 +1,14 @@
+.profile__image {
+  background-image: url(../../../images/pencil.svg);
+    /* ./images/pencil.svg */
+  background-size: 26px;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 967px) {
+  .profile__image {
+    justify-self: center;
+  }
+}

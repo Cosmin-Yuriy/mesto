@@ -1,12 +1,14 @@
 /* класс Popup, который отвечает за открытие и закрытие попапа
 Принимает в конструктор единственный параметр — селектор попапа */
 export default class Popup {
-  constructor(popupElement) {
+  constructor(popupElement, ) {
     this._popupElement = popupElement;
     /* !!! ВАЖНО Делаем привязку с помощью метода "bind" без него не будет
     передоваться в другой метод, там лишь будет "undefined" */
     this._handleEscClose = this._handleEscClose.bind(this);
+    this._buttonSubmitPopup = this._popupElement.querySelector(".popup__submit-button");
   }
+
 
   // отвечают за открытие попапа
   open() {
@@ -49,4 +51,14 @@ export default class Popup {
       }
     });
   }
+
+  buttonTextChange(save, textButton, textTimeoutSave) {
+    if (save) {
+      this._buttonSubmitPopup.textContent = textTimeoutSave;
+    } else {
+      this._buttonSubmitPopup.textContent = textButton;
+    }
+  }
+
+
 }

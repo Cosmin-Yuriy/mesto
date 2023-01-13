@@ -22,13 +22,11 @@
 
   // отвечают за открытие попапа
   open(text, link) {
-    console.log(this._popup);
     //направляем данные в открытый Popup для большой картинки link и text
     this._popupPhotoBig.src = link;
     this._popupPhotoBig.alt = text;
     this._popupTitleImage.textContent = text;
     super.open();
-    console.log("Класс PopupWithImage - метод OPEN работает" )
   } 
 
 }

@@ -1,5 +1,9 @@
+/* a {
+  display: inline-block;
+} */
+
 .profile__avatar {
-  justify-self: start;
+  /* justify-self: start; */
   width: 120px;
   height: 120px;
   border-radius: 50%;
@@ -7,8 +11,12 @@
   object-fit: cover;
 }
 
+.profile__avatar:hover {
+  opacity: 0.2;
+}
+
 @media screen and (max-width: 967px) {
   .profile__avatar {
     justify-self: center;
-}
+  }
 }

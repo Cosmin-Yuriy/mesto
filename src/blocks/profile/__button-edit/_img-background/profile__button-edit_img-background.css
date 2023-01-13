@@ -1,0 +1,15 @@
+.profile__button-edit_img-background {
+  align-items: center;
+  background-position: center;
+  background-size: cover;
+  width: 26px;
+  height: 26px;
+  background-image: url("../../../../images/pencil.svg");
+  border-width: 0;
+}
+
+.profile__button-edit_img-background:hover {
+  background-image: url("../../../../images/pencil.svg");
+  opacity: 1;
+  cursor: pointer;
+}
