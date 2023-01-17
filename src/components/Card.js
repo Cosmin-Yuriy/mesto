@@ -39,15 +39,15 @@ class Card {
   }
 
   //метод удаление карточки
-  async _handleDeleteCard() {
-    try {
-      this._deleteCardServer(this._cardId);
-      this._card.remove();
-      this._card = null;
-    } catch (error) {
-      console.log("ошибка с удалением карточки");
-    }
-  }
+  // async _handleDeleteCard() {
+  //   try {
+  //     this._deleteCardServer(this._cardId);
+  //     this._card.remove();
+  //     this._card = null;
+  //   } catch (error) {
+  //     console.log("ошибка с удалением карточки");
+  //   }
+  // }
 
   //метод лайк карточки
   _likePush() {
@@ -62,7 +62,10 @@ class Card {
     popupCardDelete.setEventListeners();
     popupCardDelete.open();
     this._buttonPushYes.addEventListener("click", () => {
-      this._handleDeleteCard();
+      this._deleteCardServer(this._cardId);
+      this._card.remove();
+      this._card = null;
+    //  this._handleDeleteCard();
       popupCardDelete.close();
     });
   }
@@ -111,7 +114,6 @@ class Card {
     const myIdLikeCard = this._likes.find(
       (element) => element._id === this._myId
     );
-  //  console.log(myIdLikeCard)
     if (myIdLikeCard) {
       this._elementLike.classList.add(this._elementLikeActive);
     }

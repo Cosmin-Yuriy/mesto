@@ -10,6 +10,7 @@ export const validationConfig = {
 export const config = {
   popup: ".popup",
   profileAvatar: ".profile__avatar",
+  formUpdateCard: "#form_update_card",
   title: ".profile__title",
   subTitle: ".profile__subtitle",
   popupEditProfile: "#popup_edit_profile",

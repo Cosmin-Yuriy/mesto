@@ -73,10 +73,12 @@
         <button class="popup__close" aria-label="сlose" type="submit">
           <img src="<%=require('./images/close-icon.svg')%>"  alt="Кнопка закрыть" class="popup__close-icon">
         </button>
-        <form id="form_update_card" class="popup__form">
+        <form id="form_update_card" class="popup__form" novalidate>
           <h2 class="popup__title">Обновите аватар</h2>
-          <input id="input-profile-link-avatar" name="avatar" class="popup__input" value="" required minlength="2"
-           type="text" placeholder="ссылка">
+          <input id="input-profile-link-avatar" name="avatar" class="popup__input" value="" placeholder="Ссылка для аватара"
+          required type="url">
+          <!-- input-profile-link-avatar-error - должен совпадать с id input иначе null и ошибка -->
+          <span class="popup__element-error input-profile-link-avatar-error"></span>
           <button id="button_push_save" class="popup__submit-button" type="submit">
             Сохранить
           </button>

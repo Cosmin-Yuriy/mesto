@@ -27,9 +27,13 @@ class FormValidator {
   };
 
   _showInputError = (inputElement) => {
+    //получаем из класса в span который (под инпутом) главное, что б id совпадало с названием класса
     this._elementError = document.querySelector(`.${inputElement.id}-error`);
+    //забрасываем текс ошибок из валидации в новую константу
     this._textError = inputElement.validationMessage;
+    //добавляем класс ошибки к инпуту
     inputElement.classList.add(this._popupInputError);
+    //в текст span под инпутом закидываем текст ошибки
     this._elementError.textContent = this._textError;
   };
 

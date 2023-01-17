@@ -22,7 +22,7 @@ export default class PopupWithForm extends Popup {
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._calbacklSubmitForm(this._getInputValues());
-      this.close();
+   //   this.close();
     });
   }
 
@@ -31,5 +31,13 @@ export default class PopupWithForm extends Popup {
   close() {
     this._form.reset();
     super.close();
+  }
+
+  buttonTextChange(save, textButton, textTimeoutSave) {
+    if (save) {
+      this._buttonSubmitPopup.textContent = textTimeoutSave;
+    } else {
+      this._buttonSubmitPopup.textContent = textButton;
+    }
   }
 }

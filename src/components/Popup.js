@@ -52,13 +52,4 @@ export default class Popup {
     });
   }
 
-  buttonTextChange(save, textButton, textTimeoutSave) {
-    if (save) {
-      this._buttonSubmitPopup.textContent = textTimeoutSave;
-    } else {
-      this._buttonSubmitPopup.textContent = textButton;
-    }
-  }
-
-
 }
