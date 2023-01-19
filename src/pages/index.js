@@ -9,7 +9,9 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import { validationConfig } from "../utils/utils.js";
 import { config } from "../utils/utils.js";
+//import { PopupWithConfirm } from "../components/PopupWithConfirmation.js";
 import Api from "../components/Api.js";
+
 //import { popupDeleteCard } from "../../mesto-main 4/src/utils/constants.js";
 
 //**************************** КОНСТАНТЫ ****************************
@@ -44,19 +46,20 @@ const inputProfileLinkAvatar = document.querySelector(
   config.inputProfileLinkAvatar
 );
 const formUpdateCard = document.querySelector(config.formUpdateCard);
-const popupFormEditPofileTable = document.querySelector(config.popupFormEditPofileTable);
+const popupFormEditPofileTable = document.querySelector(
+  config.popupFormEditPofileTable
+);
+const popupCardDelete = document.querySelector(config.popupCardDelete);
 
 //**************************** Промис ALL ****************************
 let userId;
 const promis = [api.getUserInform(), api.getCards()];
 Promise.all(promis)
   .then(([userResponse, cardResponse]) => {
-    // console.log(userResponse._id);
-    // console.log(userResponse);
-    // console.log(cardResponse);
-   userId = userResponse._id;
-   cardList.renderItems(cardResponse);
-   popupProfileEdit.setUserInfo(userResponse);
+    userId = userResponse._id;
+    cardList.renderItems(cardResponse);
+    //Если использую userInfo не приходид subtitle в профиль popupProfileEdit
+    userInfo.setUserInfo(userResponse);
   })
   .catch((error) => {
     console.log(error);
@@ -73,12 +76,14 @@ const handleCardClick = (name, link) => {
   popupImage.open(name, link);
 };
 
-const deleteCardServer = (id) => {
-  api
-    .deleteCard(id)
-    .then()
-    .catch((error) => console.log(error));
-};
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ВНИМАНИЕ - ВНИМАНИЕ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+// Я ТАК ПОНИМАЮ PopupWithConfirm ДЕЛАТЬ НЕ НУЖНО - НЕ ОБЯЗАТЕЛЬНО, НАСТАВНИК ПОКАЗЫВАЛ ПО ДРУГОМУ ДЕЛАТЬ
+// У НАС  PopupWithForm есть, зачем нам новый класс создавать, всё же там готово
+
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ВНИМАНИЕ - ВНИМАНИЕ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
 //**************************** Card ****************************
 //Делаем функцию что б добавлялись карточки (МАССИВ)
 function createCard(data) {
@@ -86,8 +91,18 @@ function createCard(data) {
     data,
     config,
     handleCardClick,
-    newElementTemplate,
-    deleteCardServer,
+    (cardId) => {
+      deleteCard.open();
+      deleteCard.popupWithConfirm(() => {
+        api
+          .deleteCard(cardId)
+          .then((res) => {
+            newCard.removeCard();
+            deleteCard.close();
+          })
+          .catch((error) => console.log(error));
+      });
+    },
     (cardId) => {
       if (newCard.isLiked()) {
         api
@@ -107,7 +122,6 @@ function createCard(data) {
           .catch((error) => console.log(error));
       }
     }
-    //handleLikeClick
   );
   return newCard.createCard();
 }
@@ -130,34 +144,27 @@ const cardList = new Section(
 //****************************** ВЫЗОВ КАРТОЧЕК  **********************************
 
 //обернули вызов в APi с данными карточек из сервера
-api
-  .getCards()
-  //  .then((res) => {
-  //   res.forEach(element => {
-  //     console.log(element)
-  //   });
-  // })
-  //Я НАДЕЮСЬ С ПРОМИСАМИ ВСЁ ПРАВИЛЬНО СДЕЛАЛ?? ЕСЛИ НЕТ, БОЛЬШАЯ ПРОСЬБА УКАЗАТЬ, КАК НУЖНО СДЕЛАТЬ...
-  
-  .then((cards) => {
-    //вызываем метод renderitems(c параметром массивом каточек)
-    cardList.renderItems(cards);
-  });
+// api
+//   .getCards()
+//   .then((cards) => {
+//     //вызываем метод renderitems(c параметром массивом каточек)
+//     cardList.renderItems(cards);
+//   });
 
 //создаем константу из Класса для Профайла
 const userInfo = new UserInfo(title, subTitle, profileAvatar);
 
 //получаем данные о юзере с сервера
-api
-  .getUserInform()
-  .then((user) => {
-    userInfo.setUserInfo({
-      name: user.name,
-      info: user.about,
-      avatar: user.avatar,
-    });
-  })
-  .catch((error) => console.log(error));
+// api
+//   .getUserInform()
+//   .then((user) => {
+//     userInfo.setUserInfo({
+//       name: user.name,
+//       info: user.about,
+//       avatar: user.avatar,
+//     });
+//   })
+//   .catch((error) => console.log(error));
 
 //**************************** PopupWithForm  UserInfo Card ****************************
 
@@ -171,7 +178,7 @@ const popupProfileEdit = new PopupWithForm(popupEditProfile, (res) => {
       //добавляем сюда и аватар, что б подгружался и он после обновления
       userInfo.setUserInfo({
         name: res.name,
-        info: res.about,
+        about: res.about,
         avatar: res.avatar,
       });
     })
@@ -186,7 +193,7 @@ const popupProfileEdit = new PopupWithForm(popupEditProfile, (res) => {
 popupProfileEdit.setEventListeners();
 buttonEdit.addEventListener("click", () => {
   inputTitleProfile.value = userInfo.getUserInfo().name;
-  inputSubtitleProfile.value = userInfo.getUserInfo().info;
+  inputSubtitleProfile.value = userInfo.getUserInfo().about;
   popupProfileEdit.open();
 });
 
@@ -201,7 +208,7 @@ const avatarUpdate = new PopupWithForm(popupUpdateAvatarId, (input) => {
       userInfo.setUserInfo({
         avatar: input.avatar,
         name: res.name,
-        info: res.about,
+        about: res.about,
       });
     })
     .then(() => {
@@ -215,7 +222,7 @@ const avatarUpdate = new PopupWithForm(popupUpdateAvatarId, (input) => {
 
 avatarUpdate.setEventListeners();
 profileAvatar.addEventListener("click", () => {
- // inputProfileLinkAvatar.value = userInfo.getUserInfo().avatar;
+  // inputProfileLinkAvatar.value = userInfo.getUserInfo().avatar;
   avatarUpdate.open();
 });
 
@@ -226,14 +233,7 @@ const popupAddCard = new PopupWithForm(popupAdd, (input) => {
   api
     .addNewCard(input.name, input.subtitle)
     .then((res) => {
-      const infoCard = createCard(
-        res
-        // name: res.name,
-        // link: res.link,
-        // //здесь отправляю данные дополнительные
-        // owner: res.owner,
-        // likes: res.likes,
-      );
+      const infoCard = createCard(res);
       cardList.addItemNewcard(infoCard);
     })
     .then(() => {
@@ -248,20 +248,35 @@ const popupAddCard = new PopupWithForm(popupAdd, (input) => {
 //popupAddCard._getInputValues();
 popupAddCard.setEventListeners();
 
+//удаление карточки popupCardDelete -
+const deleteCard = new PopupWithForm(popupCardDelete);
+
+//закрытие попапа
+deleteCard.setEventListeners();
+
+//console.log(popupAddCard);
+//console.log(deleteCard);
 // 2 POPUP
 // Включаем кнопку, дословно добавляем к классу popup_add + класс popup-Open
 buttonAddButton.addEventListener("click", () => {
   popupAddCard.open();
 });
-//------------------------------ КОНЕЦ ------------------------------
+
+//const test = document.querySelector(config.elementTrash);
+//const confirm = new PopupWithConfirm(".popup_delete_card");
+// confirm.what();
+//confirm.listenerDeleteCard()
+//-----------------------------s- КОНЕЦ ------------------------------
 
 //**************************** ВАЛИДАЦИЯ ****************************
 //Обязательно нужно пробрасывать (параметры/аргументы из Класcа/index)
 //создаем константу и класса с параметрами Congig c для валидации классов, и формы popup
 const validationCard = new FormValidator(validationConfig, formAdd);
 validationCard.enableValidation();
-const validationProfile = new FormValidator(validationConfig, popupFormEditPofileTable);
+const validationProfile = new FormValidator(
+  validationConfig,
+  popupFormEditPofileTable
+);
 validationProfile.enableValidation();
-// const validationAvatar = new FormValidator(validationConfig, formUpdateCard);
-// validationAvatar.enableValidation();
-
+const validationAvatar = new FormValidator(validationConfig, formUpdateCard);
+validationAvatar.enableValidation();

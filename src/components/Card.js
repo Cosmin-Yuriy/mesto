@@ -5,8 +5,7 @@ class Card {
     data,
     config,
     handleCardClick,
-    newElementTemplate,
-    deleteCardServer,
+    handleDeleteClick,
     handleLikeClick
   ) {
     this.data = data;
@@ -21,13 +20,13 @@ class Card {
     this._elementLikeSelector = config.elementLike;
     this._elementLikeActive = config.elementLikeActive;
     this._newElementIdTemplate = config.newElementIdTemplate;
-    this._handleCardClick = handleCardClick;
-    this._handleLikeClick = handleLikeClick;
     this._likesCoount = config.likeCounter;
     this._cardDeleteId = config.cardDelete;
     this._buttonPushYesId = config.buttonPushYes;
     this._myId = config.userId;
-    this._deleteCardServer = deleteCardServer;
+    this._handleCardClick = handleCardClick;
+    this._handleLikeClick = handleLikeClick;
+    this._handleDeleteClick = handleDeleteClick;
   }
 
   _getTemplate() {
@@ -55,19 +54,24 @@ class Card {
   }
 
   //метод слушателей для удалений card
-  _listenerDeleteCard() {
-    this._cardDelete = document.querySelector(this._cardDeleteId);
-    this._buttonPushYes = document.querySelector(this._buttonPushYesId);
-    const popupCardDelete = new Popup(this._cardDelete);
-    popupCardDelete.setEventListeners();
-    popupCardDelete.open();
-    this._buttonPushYes.addEventListener("click", () => {
-      this._deleteCardServer(this._cardId);
-      this._card.remove();
-      this._card = null;
-    //  this._handleDeleteCard();
-      popupCardDelete.close();
-    });
+  // _listenerDeleteCard() {
+  //   this._cardDelete = document.querySelector(this._cardDeleteId);
+  //   this._buttonPushYes = document.querySelector(this._buttonPushYesId);
+  //   const popupCardDelete = new Popup(this._cardDelete);
+  //   popupCardDelete.setEventListeners();
+  //   popupCardDelete.open();
+  //   this._buttonPushYes.addEventListener("click", () => {
+  //     this._deleteCardServer(this._cardId, this._getTemplate);
+  //     this._card.remove();
+  //     this._card = null;
+  //   //  this._handleDeleteCard();
+  //     popupCardDelete.close();
+  //   });
+  // }
+
+  removeCard() {
+    this._card.remove();
+    this._card = null;
   }
 
   //Добавляем слушатели
@@ -79,14 +83,20 @@ class Card {
     });
 
     //Удаляем карточки
-    this._buttonTrash.addEventListener("click", (event) => {
-      event.preventDefault();
-      this._listenerDeleteCard();
+    this._buttonTrash.addEventListener("click", () => {
+      this._handleDeleteClick(this._cardId);
+      console.log("Class Card  work");
     });
+    //Удаляем карточки
+    // this._buttonTrash.addEventListener("click", (event) => {
+    //   event.preventDefault();
+    //   this._listenerDeleteCard();
+    // });
 
     //Лайкаем сердечки
     this._elementLike.addEventListener("click", () => {
       this._likePush();
+      //сюда в функцию передаем id карты
       this._handleLikeClick(this._cardId);
     });
   }
@@ -99,17 +109,16 @@ class Card {
     }
   }
 
-  isLiked(){
+  isLiked() {
     const myIdLikeCards = this._likes.find(
       (element) => element._id === this._myId
     );
     return myIdLikeCards;
   }
 
-
-    //МЕТОД - закрашивает мои лайки
-    //Если мой айди совпадает с айди лайкнушего картинку,
-    // то закрашиваем сердце  "this._elementLikeActive"
+  //МЕТОД - закрашивает мои лайки
+  //Если мой айди совпадает с айди лайкнушего картинку,
+  // то закрашиваем сердце  "this._elementLikeActive"
   _likeMyUserCard() {
     const myIdLikeCard = this._likes.find(
       (element) => element._id === this._myId
@@ -119,13 +128,13 @@ class Card {
     }
   }
 
-    //метод считает и добавляет лайки
-    likeCounter(addLikes){
-      this._likes = addLikes;
+  //метод считает и добавляет лайки
+  likeCounter(addLikes) {
+    this._likes = addLikes;
     //вытаскиваем счетчик лайков (если сделать document.querySelector.... то будет выдавать ошибку)
     this._likeCounter = this._card.querySelector(this._likesCoount);
     this._likeCounter.textContent = this._likes.length;
-    }
+  }
   //Создаем карточки
 
   createCard() {
@@ -138,10 +147,9 @@ class Card {
     this._buttonTrash = this._card.querySelector(this._elementTrashSelector);
     this._elementLike = this._card.querySelector(this._elementLikeSelector);
 
-  
     this._elementImage.src = this._link;
     this._elementImage.alt = this._text;
-    
+
     //метод считает и добавляет лайки
     this.likeCounter(this._likes);
     //метод закрашивает мои лайки

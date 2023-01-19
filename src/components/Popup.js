@@ -1,7 +1,7 @@
 /* класс Popup, который отвечает за открытие и закрытие попапа
 Принимает в конструктор единственный параметр — селектор попапа */
 export default class Popup {
-  constructor(popupElement, ) {
+  constructor(popupElement) {
     this._popupElement = popupElement;
     /* !!! ВАЖНО Делаем привязку с помощью метода "bind" без него не будет
     передоваться в другой метод, там лишь будет "undefined" */
@@ -16,6 +16,7 @@ export default class Popup {
     /*обязательно надо делать привязку с помощью метода "bind" в конструкторе
     Также можно просто здесь написать (evt) => this._handleEscClose(evt) */
     document.addEventListener("keydown", this._handleEscClose);
+    console.log('сработало опен в попап')
   }
 
   // отвечают закpытие попапа
@@ -36,20 +37,28 @@ export default class Popup {
    Модальное окно также закрывается при клике на затемнённую
    область вокруг формы */
   setEventListeners() {
-    //закрыть при нажатии на крестик
+    //закрыть попап
     this._buttonClose = document.querySelectorAll(".popup__close-icon");
-    this._buttonClose.forEach((element) => {
-      element.addEventListener("click", () => {
-        this.close();
-      });
-    });
-
-    //закрытие на паранжу
     this._popupElement.addEventListener("click", (evt) => {
-      if (evt.target === evt.currentTarget) {
+      if (
+        evt.target.classList.contains("popup_opened") ||
+        evt.target.classList.contains("popup__close-icon")
+      ) {
         this.close();
       }
     });
+    // this._buttonClose.forEach((element) => {
+    //   element.addEventListener("click", () => {
+    //     this.close();
+    //   });
+    // });
+    
+    //закрытие на паранжу
+    // this._popupElement.addEventListener("click", (evt) => {
+    //   if (evt.target === evt.currentTarget) {
+    //     this.close();
+    //   }
+    // });
   }
 
 }

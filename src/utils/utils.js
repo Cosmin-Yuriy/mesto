@@ -44,6 +44,7 @@ export const config = {
   likeCounter: "#likeCounter",
   cardDelete: "#popup_delete_card",
   buttonPushYes: "#button_push_yes",
+  popupCardDelete: "#popup_delete_card",
   popupUpdateAvatarId: "#popup_update_avatar",
   inputProfileLinkAvatar: "#input-profile-link-avatar",
   host: "https://mesto.nomoreparties.co/v1/cohort-55",

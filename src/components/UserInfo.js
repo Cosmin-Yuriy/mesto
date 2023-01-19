@@ -15,19 +15,15 @@ export default class UserInfo {
   getUserInfo() {
     return {
       name: this._elementName.textContent,
-      info: this._elementInfo.textContent,
+      about: this._elementInfo.textContent,
       avatar: this._avatar.src,
-      // name: this._elementName,
-      // info: this._elementInfo,
     };
   }
 
   //который принимает новые данные пользователя и добавляет их на страницу.
-  setUserInfo({ name, info, avatar }) {
+  setUserInfo({ name, about, avatar }) {
     this._elementName.textContent = name;
-    this._elementInfo.textContent = info;
+    this._elementInfo.textContent = about;
     this._avatar.src = avatar;
-    // console.log(avatar);
-    // this._elementInfo = info;
   }
 }
