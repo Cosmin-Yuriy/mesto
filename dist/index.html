@@ -6,13 +6,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
-</head>
+<script defer src="main.js"></script><link href="main.css" rel="stylesheet"></head>
 
 <body class="body">
   <div class="page">
 
     <header class="header">
-      <img class="header__logo" src="<%=require('./images/Vector.svg')%>" alt="Логотип с изображение и надписью 'Mesto'">
+      <img class="header__logo" src="images/Vector.svg" alt="Логотип с изображение и надписью 'Mesto'">
     </header>
     <main class="content">
 
@@ -24,12 +24,12 @@
         <div class="profile__info">
           <h1 class="profile__title">#</h1>
           <button id="profileButtonEdit" class="profile__button-edit" type="submit">
-            <img  src="<%=require('./images/pencil.svg')%>"  alt="Знак карандаш" class="profile__pencil">
+            <img  src="images/pencil.svg"  alt="Знак карандаш" class="profile__pencil">
           </button>
           <p class="profile__subtitle"></p>
         </div>
         <button id="profileAddButton" class="profile__add-button" type="submit">
-          <img src="<%=require('./images/plus.svg')%>" alt="Знак плюс" class="profile__plus">
+          <img src="images/plus.svg" alt="Знак плюс" class="profile__plus">
         </button>
       </section>
 
@@ -48,7 +48,7 @@
     <div id="popup_edit_profile" class="popup">
       <div class="popup__content">
         <button class="popup__close" aria-label="сlose" type="submit">
-          <img src="<%=require('./images/close-icon.svg')%>"  alt="Кнопка закрыть" class="popup__close-icon">
+          <img src="images/close-icon.svg"  alt="Кнопка закрыть" class="popup__close-icon">
         </button>
         <form id="popupFormEditPofileTable" name="popupFormEditPofileTable" class="popup__form" novalidate>
           <h2 class="popup__title">Редактировать профиль</h2>
@@ -69,7 +69,7 @@
     <div id="popup_update_avatar" class="popup">
       <div class="popup__content popup__content_size_small-avatar">
         <button class="popup__close" aria-label="сlose" type="submit">
-          <img src="<%=require('./images/close-icon.svg')%>"  alt="Кнопка закрыть" class="popup__close-icon">
+          <img src="images/close-icon.svg"  alt="Кнопка закрыть" class="popup__close-icon">
         </button>
         <form id="form_update_card" class="popup__form" novalidate>
           <h2 class="popup__title">Обновите аватар</h2>
@@ -88,7 +88,7 @@
     <div id="popup_delete_card" class="popup">
       <div class="popup__content popup__content_size_small">
         <button class="popup__close" aria-label="сlose" type="submit">
-          <img src="<%=require('./images/close-icon.svg')%>"  alt="Кнопка закрыть" class="popup__close-icon">
+          <img src="images/close-icon.svg"  alt="Кнопка закрыть" class="popup__close-icon">
         </button>
         <form id="form_delete_card" class="popup__form">
           <h2 class="popup__title">Вы уверены?</h2>
@@ -103,7 +103,7 @@
     <div id="popup_add" class="popup">
       <div class="popup__content">
         <button class="popup__close" aria-label="сlose" type="submit">
-          <img src="<%=require('./images/close-icon.svg')%>" alt="Кнопка закрытия" class="popup__close-icon">
+          <img src="images/close-icon.svg" alt="Кнопка закрытия" class="popup__close-icon">
         </button>
         <form id="form_add" action="#" class="popup__form" novalidate>
           <h2 class="popup__title">Новое место</h2>
@@ -126,7 +126,7 @@
         <img class="popup__photo" src="#" alt="Увеличенная картинка">
         <p class="popup__title-img"></p>
         <button name="buttonPopupBigImgClose" aria-label="сlose" class="popup__close" type="submit">
-          <img src="<%=require('./images/close-icon.svg')%>"  alt="Кнопка закрытия" class="popup__close-icon">
+          <img src="images/close-icon.svg"  alt="Кнопка закрытия" class="popup__close-icon">
         </button>
       </div>
 
